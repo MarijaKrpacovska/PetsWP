@@ -42,5 +42,7 @@ public interface PetService {
 
     List<Pet> searchAll(AgeGroup age, String adopted, Gender gender, Type type);
 
+    List<Pet> searchByCenter(Integer centerId);
+
     List<Pet> searchAdopted(Integer id);
 }

@@ -59,6 +59,12 @@ public class AdoptionServiceImpl implements AdoptionService {
     }
 
     @Override
+    public List<Adoption> listAllByStatus(Status status) {
+        return this.adoptionRepository.findAllByStatus(status);
+    }
+
+
+    @Override
     public List<Adoption> search(String username, Integer id) {
 
         List<Adoption> emptySearchResult = new ArrayList<>();

@@ -2,6 +2,7 @@ package mk.finki.ukim.milenichinja.Repository.Jpa;
 
 
 import mk.finki.ukim.milenichinja.Models.*;
+import mk.finki.ukim.milenichinja.Models.Enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,7 @@ public interface AdoptionRepository extends JpaRepository<Adoption,Integer> {
     List<Adoption> findAllByUser(AppUser user);
 
     List<Adoption> findAllByUserAndPet(AppUser user, Pet pet);
+
+    List<Adoption> findAllByStatus(Status status);
 
 }

@@ -70,5 +70,7 @@ public interface PetRepository extends JpaRepository<Pet,Integer> {
 
     List<Pet> findAllByCenter(Center center);
 
+    List<Pet> findAllByCenterAndAdopted(Center center, Boolean adopted);
+
 
 }

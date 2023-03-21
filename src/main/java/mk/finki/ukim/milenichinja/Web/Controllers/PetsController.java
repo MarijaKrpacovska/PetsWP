@@ -22,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -58,8 +60,12 @@ public class PetsController {
         else {
             pets = this.petService.search(ageSearch, breedSearch, genderSearch, typeSearch);
         }
+
+
         model.addAttribute("petList", pets);
-        return "mainPages/pets.html";
+        model.addAttribute("bodyContent", "mainPages/pets.html");
+        return "mainPages/master-template.html";
+      //  return "mainPages/pets.html";
     }
 
     @GetMapping("/pets-info/all")
@@ -153,7 +159,8 @@ public class PetsController {
             model.addAttribute("dateOfBirth", dateOfBirth);
             model.addAttribute("pet", pet);
             model.addAttribute("centerList",centri);
-            return "posts/addPet";
+            model.addAttribute("bodyContent", "posts/addPet");
+            return "mainPages/master-template.html";
         }
         return "redirect:/products?error=ProductNotFound";
     }
@@ -167,8 +174,8 @@ public class PetsController {
 
         model.addAttribute("today", formattedString);
         model.addAttribute("petList",milenichinja);
-        int random=5;
-        return "posts/addPet";
+        model.addAttribute("bodyContent", "posts/addPet");
+        return "mainPages/master-template.html";
     }
 
     @PostMapping("/add")
@@ -223,8 +230,13 @@ public class PetsController {
     public String detailsPage(@PathVariable int id, Model model) {
         if (this.petService.findById(id).isPresent()) {
             Pet pet = this.petService.findById(id).get();
+            String dateOfBirth = pet.getDateOfBirth().getDayOfMonth()+"/"+pet.getDateOfBirth().getMonthValue()+"/"+pet.getDateOfBirth().getYear();
+            String arrivalDate = pet.getArivalDate().getDayOfMonth()+"/"+pet.getArivalDate().getMonthValue()+"/"+pet.getArivalDate().getYear();
             model.addAttribute("pet", pet);
-            return "details/pets.html";
+            model.addAttribute("dateOfBirth", dateOfBirth);
+            model.addAttribute("arrivalDate", arrivalDate);
+            model.addAttribute("bodyContent", "details/pets.html");
+            return "mainPages/master-template.html";
         }
         return "redirect:/petsList?error=PetNotFound";
     }

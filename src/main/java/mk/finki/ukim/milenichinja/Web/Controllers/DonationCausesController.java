@@ -42,7 +42,8 @@ public class DonationCausesController {
     public String getAllCausesPage(Model model) {
         List<DonationCause> donationCauses = this.donationCauseService.listAll();
         model.addAttribute("causesList",donationCauses);
-        return "mainPages/donationCauses";
+        model.addAttribute("bodyContent", "mainPages/donationCauses");
+        return "mainPages/master-template.html";
     }
     //MAIN GET PAGE
 
@@ -57,6 +58,7 @@ public class DonationCausesController {
             model.addAttribute("error", error);
         }
         // model.addAttribute("bodyContent","register");
+
         return "posts/addDonationCause.html";
     }
 

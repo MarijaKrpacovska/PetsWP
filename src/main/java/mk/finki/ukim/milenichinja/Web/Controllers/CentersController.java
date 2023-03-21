@@ -5,10 +5,9 @@ import mk.finki.ukim.milenichinja.Models.Center;
 import mk.finki.ukim.milenichinja.Models.Enums.City;
 import mk.finki.ukim.milenichinja.Models.Exceptions.CenterNotFoundException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.DeleteConstraintViolationException;
-import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUsernameOrPasswordException;
 import mk.finki.ukim.milenichinja.Models.Pet;
 import mk.finki.ukim.milenichinja.Service.CenterService;
-import org.hibernate.exception.ConstraintViolationException;
+import mk.finki.ukim.milenichinja.Service.PetService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +22,11 @@ import java.util.List;
 public class CentersController {
 
     private final CenterService centerService;
+    private final PetService petService;
 
-    public CentersController(CenterService centerService) {
+    public CentersController(CenterService centerService, PetService petService) {
         this.centerService = centerService;
+        this.petService = petService;
     }
 
     //MAIN GET PAGE
@@ -37,8 +38,11 @@ public class CentersController {
             model.addAttribute("error", error);
         }
         List<Center> centri = this.centerService.listAll();
-        model.addAttribute("centerList",centri);
-        return "mainPages/centers";
+        List<City> cities = Arrays.asList(City.values());
+        model.addAttribute("centerList", centri);
+        model.addAttribute("citiesList", cities);
+        model.addAttribute("bodyContent", "mainPages/centers");
+        return "mainPages/master-template.html";
     }
     //MAIN GET PAGE
 
@@ -102,9 +106,12 @@ public class CentersController {
         try {
             if (this.centerService.findById(id).isPresent()) {
                 Center center = this.centerService.findById(id).get();
+                List<Pet> pets = this.petService.searchByCenter(id);
                 model.addAttribute("center", center);
+                model.addAttribute("petsList", pets);
             }
-            return "details/center.html";
+            model.addAttribute("bodyContent", "details/center.html");
+            return "mainPages/master-template.html";
         }catch (CenterNotFoundException exception) {
             return "redirect:/centers?error=" + exception.getMessage();
         }

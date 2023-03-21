@@ -1,0 +1,120 @@
+
+            <!-------------------------------------------LISTA DCS------------------------------------------->
+            <div class="container" xmlns:th="http://www.thymeleaf.org">
+                <!-------------------------------------------RED OD 4 DCS------------------------------------------->
+                <div class="media-container-row">
+                    <!-------------------------------------------EDEN DC------------------------------------------->
+                    <div th:each="cause : ${causesList}" class="card p-4 col-12 col-md-6 col-lg-4 edenCentar">
+                        <!------------PICTURE + SHORT INFO-------------->
+
+                        <!------------ACTIVE-------------->
+                        <div th:if="${cause.getStatus().name()} == 'ACTIVE'" class="card-wrapper">
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+                            <a th:href="@{'/causes/details/{id}' (id=${cause.getId()})}">
+                                <div class="card-img">
+                                    <div class="img_wrapper activeImg">
+                                        <img class="centerImg" th:src="${cause.getImageUrl()}">
+                                    </div>
+                                </div>
+                            </a>
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                            <div class="activeDCInfoDiv">
+                                <h4 class="card-title pb-3 mbr-fonts-style display-7">
+                                    <p class="imeGradP" th:text="${cause.getName()}"></p>
+                                </h4>
+                            </div>
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                        </div>
+                        <!------------ACTIVE-------------->
+
+                        <!------------COMPLETED-------------->
+                        <div th:if="${cause.getStatus().name()} == 'COMPLETED'" sec:authorize="hasRole('ROLE_ADMIN')" class="card-wrapper">
+
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+                            <a th:href="@{'/causes/details/{id}' (id=${cause.getId()})}">
+                                <div class="card-img">
+                                    <div class="img_wrapper completedImg">
+                                        <img class="centerImg" th:src="${cause.getImageUrl()}">
+                                    </div>
+                                </div>
+                            </a>
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                            <div class="completedDCInfoDiv">
+                                <h4 class="card-title pb-3 mbr-fonts-style display-7">
+                                    <p class="imeGradP" th:text="${cause.getName()}"></p>
+                                </h4>
+                            </div>
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                        </div>
+                        <!------------COMPLETED-------------->
+
+                        <!------------CLOSED-------------->
+                        <div th:if="${cause.getStatus().name()} == 'CLOSED'" sec:authorize="hasRole('ROLE_ADMIN')" class="card-wrapper">
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+                            <a th:href="@{'/causes/details/{id}' (id=${cause.getId()})}">
+                                <div class="card-img">
+                                    <div class="img_wrapper closedImg">
+                                        <img class="centerImg" th:src="${cause.getImageUrl()}">
+                                    </div>
+                                </div>
+                            </a>
+                            <!-----------------------------IMAGE + LINK TO DETAILS----------------------------->
+
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                            <div class="closedDCInfoDiv">
+                                <h4 class="card-title pb-3 mbr-fonts-style display-7">
+                                    <p class="imeGradP" th:text="${cause.getName()}"></p>
+                                </h4>
+                            </div>
+                            <!-----------------------------SHORT INFO DIV----------------------------->
+                        </div>
+                        <!------------CLOSED-------------->
+
+                        <!------------PICTURE + SHORT INFO-------------->
+
+                        </br>
+                        </br>
+
+                        <!------------POSTS-------------->
+                        <div>
+                            <!------------DELETE-------------->
+                            <form th:method="DELETE" th:action="@{'/causes/deleteCause/{id}' (id=${cause.getId()})}">
+                                <button class="delete_button"  type="submit" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    DELETE
+                                </button>
+                            </form>
+                            <!------------DELETE-------------->
+
+                            <!------------EDIT-------------->
+                            <a th:href="@{'/causes/edit-form/{id}' (id=${cause.getId()})}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <i>Edit</i>
+                            </a>
+                            <!------------EDIT-------------->
+                        </div>
+                        <!------------POSTS-------------->
+                    </div>
+                    <!-------------------------------------------EDEN DC------------------------------------------->
+                </div>
+                <!-------------------------------------------RED OD 4 DCS------------------------------------------->
+            </div>
+            <!-------------------------------------------LISTA DCS------------------------------------------->
+
+            <!-----------------------------------------ADD CAUSE----------------------------------------->
+            <div class="add_center_button_div" sec:authorize="hasRole('ROLE_ADMIN')" >
+                <a class="add_center_button" href="/donate/addDonationCause">
+                    ADD CAUSE
+                </a>
+            </div>
+            <!-----------------------------------------ADD CAUSE----------------------------------------->
+
+            <!-------------------------------------VIEW DONATIONS------------------------------------->
+            <div class="add_center_button_div" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="add_center_button" href="/allDonations">
+                    VIEW DONATIONS
+                </a>
+            </div>
+            <!-------------------------------------VIEW DONATIONS------------------------------------->

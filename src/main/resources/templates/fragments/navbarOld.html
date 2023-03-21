@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/css/fragments/navbar.css}"> </link>
+
+</head>
+<body>
+<div class="topnav">
+    <div class="row">
+        <div class="col-md-6">
+            <a class="active" href="/petsList">PETS</a>
+            <a href="/centers">CENTERS</a> <!--sec:authorize="hasRole('ROLE_ADMIN')"-->
+            <a href="/petsList/pets-info/all" sec:authorize="hasRole('ROLE_ADMIN')" >ALL PETS</a>
+        </div>
+        <div class="col-md-6" style="text-align: right">
+            <a class="active" href="/manage-roles" sec:authorize="hasRole('ROLE_ADMIN')" >MANAGE ROLES </a>
+            <a class="active" href="/causes" sec:authorize="hasRole('ROLE_ADMIN')" >MANAGE CAUSES</a>
+            <a class="active" href="/donate" sec:authorize="hasRole('ROLE_USER')">DONATE</a>
+
+            <th:block sec:authorize="isAuthenticated()">
+               <!-- <div class="row" style="color: white">
+                    <div class="col-md-1" style="text-align: right" th:text="${session.klient.getIme()}"></div>
+                    <div class="col-md-11" style="margin-left: -17px" th:text="${session.klient.getPrezime()}"></div>
+                </div>-->
+                <div class="korisnik1" style="margin-left: -40px">
+               <!--     <span sec:authentication="principal.lastname"></span>-->
+                <!--   <img class="petImg" th:src="${principal.profile_picture}" alt="Pet Image" title="" media-simple="true">-->
+                <strong class="korisnik" th:if="${#request.getRemoteUser() != null}"
+                        th:text="${#request.getRemoteUser()}"></strong>
+               <!-- <strong class="korisnik" th:text="${session.user.getLastname()}"></strong>-->
+                    <a class="active" style="margin-top: -14px" href="/logout">
+                        <i></i>LOGOUT
+                    </a>
+                </div>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+            <a class="active" href="/login">LOG IN</a>
+            <a href="/register">REGISTER</a>
+            </th:block>
+            <!--<th:block class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/logout">
+                    <i class="fa fa-shopping-cart"></i> Logout
+                </a>
+            </th:block>-->
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

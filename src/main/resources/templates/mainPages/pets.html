@@ -1,156 +1,191 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
-    <head>
-        <title>Pets</title>
-        <link rel="stylesheet" href="http://formoid.com/articles/data/upload/theme/style.min.css">
-        <link rel="stylesheet" th:href="@{/css/mainPages/pets.css}"> </link>
-    </head>
-
-    <body>
-    <!-------------------------------------------HEADER------------------------------------------->
-        <header th:replace="fragments/navbar.html"/>
-    <!-------------------------------------------HEADER------------------------------------------->
-
-    <!-------------------------------------------BODY------------------------------------------->
-        <div class="bodyContent">
-            <!-------------------------------------------WHITE BACKGROUND------------------------------------------->
-            <section class="features2 cid-qxWAQuan7h" id="features2-ph" data-rv-view="9966">
-
-                <!-------------------------------------------SEARCH PETS------------------------------------------->
-                <div class="row searchPets">
-                    <!--TITLE FOR SEARCH-->
-                    <p class="searchTitle">SEARCH PETS: </p>
-                    <!--TITLE FOR SEARCH-->
-
-                    <!--FORM FOR SEARCH-->
-                    <form id="filter-form">
-                        <div class="copyFilter">
-                            <!--AGE SEARCH-->
-                            <select id="ageSearch" name="ageSearch">
-                                <option value="">Age</option>
-                                <option value="lessThanYear"> less than 1 year </option>
-                                <option value="oneToTwoYears"> 1-2 years </option>
-                                <option value="threeToFiveYears"> 3-5 years </option>
-                                <option value="sixToNineYears"> 6-9 years </option>
-                                <option value="tenYearsOrOlder"> over 9 years </option>
-                            </select>
-                            <!--AGE SEARCH-->
-
-                            <!--BREED SEARCH-->
-                            <div class="breedSearch">
-                                <label for="breedSearch">Breed</label>
-                                <input id="breedSearch" type="text" name="breedSearch"/>
-                            </div>
-                            <!--BREED SEARCH-->
-
-                            <!--GENDER SEARCH-->
-                            <select id="genderSearch" name="genderSearch">
-                                <option value="">Gender</option>
-                                <option value="FEMALE">FEMALE</option>
-                                <option value="MALE">MALE</option>
-                            </select>
-                            <!--GENDER SEARCH-->
-
-                            <!--TYPE SEARCH-->
-                            <select id="typeSearch" name="typeSearch">
-                                <option value="">Type</option>
-                                <option value="DOG">DOG</option>
-                                <option value="CAT">CAT</option>
-                            </select>
-                            <!--TYPE SEARCH-->
-                            <br/>
-                            <button id="filter" type="submit">Search</button>
-                        </div>
-                    </form>
-                    <!--FORM FOR SEARCH-->
-                </div>
-                <!-------------------------------------------SEARCH PETS------------------------------------------->
-
-                <!-------------------------------------------PETS LIST------------------------------------------->
-                <div class="container">
-                <!-------------------------------------------THREE PETS ROW------------------------------------------->
-                    <div class="media-container-row">
-                        <!------------------------------------ONE PET---------------------------------------->
-                        <div th:each="petList : ${petList}" class="card p-4 col-12 col-md-6 col-lg-4 pet">
-
-                            <!--PET PICTURE AND INFO-->
-                            <div class="card-wrapper">
-                                <!--PET PICTURE-->
-                                <div class="card-img">
-                                    <a th:href="@{'/petsList/details/{id}' (id=${petList.getId()})}">
-                                        <div class="pet_img_div">
-                                            <img class="pet_img" th:src="${petList.getUrl()}" alt="Pet image" media-simple="true">
-                                        </div>
-                                    </a>
-                                </div>
-                                <!--PET PICTURE-->
-
-                                <!--SHORT INFO ABOUT PET-->
-                                <div class="pet_info_div">
-                                    <h4 class="card-title pb-3 mbr-fonts-style display-7">
-                                        <strong th:text="${petList.getName()}" class="pet_info_div_strong" ></strong>
-                                        <strong class="pet_info_div_strong">,</strong>
-                                        <th:block th:if="${petList.getGender().name() == 'FEMALE' }">
-                                            <img src="https://vignette.wikia.nocookie.net/theizabran/images/9/99/Female.png/revision/latest?cb=20171014154044" class="pet_info_div_female_img">
-                                        </th:block>
-                                        <th:block th:if="${petList.getGender().name() == 'MALE' }">
-                                            <img src="https://www.freeiconspng.com/uploads/male-symbols-icon-6.png" class="pet_info_div_male_img">
-                                        </th:block>
-                                        <strong class="pet_info_div_strong">,</strong>
-                                        <strong class="pet_info_div_strong" th:text="${petList.getAge()}"></strong>
-                                    </h4>
-                                </div>
-                                <!--SHORT INFO ABOUT PET-->
-                            </div>
-                            <!--PET PICTURE AND INFO-->
-
-                            <!--PET POST ACTIONS-->
-                            <div class="petPostActions">
-                                <!--ADOPT PET-->
-                                <!--<form th:method="POST" th:action="@{'/adopt/adoptedPett/{id}' (id=${petList.getId()})}">
-                                    <button class="adopt_button"  type="submit">ADOPT</button>
-                                </form>-->
-                                <!--ADOPT PET-->
-
-                                <!--DELETE PET-->
-                                <form th:method="DELETE" th:action="@{'/petsList/deletePet/{id}' (id=${petList.getId()})}" sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <button class="delete_button"  type="submit">Delete</button>
-                                </form>
-                                <!--DELETE PET-->
-
-                                <!--EDIT PET-->
-                                <a th:href="@{'/petsList/edit-form/{id}' (id=${petList.getId()})}" sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <i>Edit</i>
-                                </a>
-                                <!--EDIT PET-->
-                            </div>
-                            <!--PET POST ACTIONS-->
-
-                        </div>
-                        <!------------------------------------ONE PET---------------------------------------->
-                    </div>
-                <!-------------------------------------------THREE PETS ROW------------------------------------------->
-                </div>
-                <!-------------------------------------------PETS LIST------------------------------------------->
-
-                <!-------------------------------------------ADD PET------------------------------------------->
-                <br>
-                <br>
-                <div class="add_pet_button_div">
-                    <a class="add_pet_button" href="/petsList/add-form" sec:authorize="hasRole('ROLE_ADMIN')">
-                        ADD PET
-                    </a>
-                </div>
-                <!-------------------------------------------ADD PET------------------------------------------->
-            </section>
-            <!-------------------------------------------WHITE BACKGROUND------------------------------------------->
+<div xmlns:th="http://www.thymeleaf.org">
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Home</a>
+                <span class="breadcrumb-item active">Pet List</span>
+            </nav>
         </div>
-    <!-------------------------------------------BODY------------------------------------------->
+    </div>
+</div>
+<!-- Breadcrumb End -->
 
-    <!-------------------------------------------FOOTER------------------------------------------->
-        <footer th:replace="fragments/footer.html"/>
-    <!-------------------------------------------FOOTER------------------------------------------->
 
-    </body>
-</html>
+<!-- Pets Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-4">
+            <!-- Size Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by pet</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" checked id="size-all">
+                        <label class="custom-control-label" for="size-all">Any pet</label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="size-1">
+                        <label class="custom-control-label" for="size-1">Dog</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="size-2">
+                        <label class="custom-control-label" for="size-2">Cat</label>
+                        <span class="badge border font-weight-normal">295</span>
+                    </div>
+                </form>
+            </div>
+            <!-- Size End -->
+
+            <!-- Age Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by age</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" checked id="price-all">
+                        <label class="custom-control-label" for="price-all">All ages</label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-1">
+                        <label class="custom-control-label" for="price-1">Baby (0 - 11 months)</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-2">
+                        <label class="custom-control-label" for="price-2">Young (1 - 2 years)</label>
+                        <span class="badge border font-weight-normal">295</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-3">
+                        <label class="custom-control-label" for="price-3">Adult (3 - 8 years)</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-4">
+                        <label class="custom-control-label" for="price-4">Senior (older then 9 years)</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                </form>
+            </div>
+            <!-- Age End -->
+
+            <!-- Color Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by gender</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" checked id="color-all">
+                        <label class="custom-control-label" for="price-all">Any gender</label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-1">
+                        <label class="custom-control-label" for="color-1">Female</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-1">
+                        <label class="custom-control-label" for="color-1">Male</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                </form>
+            </div>
+            <!-- Color End -->
+
+
+        </div>
+        <!-- Shop Sidebar End -->
+
+
+        <!-- Pets Start -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                <div class="col-12 pb-1" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+
+                        </div>
+                        <div class="ml-2">
+                            <div class="btn-group ml-2">
+                                <form ></form>
+                                <a type="button" class="btn btn-sm btn-light" href="/petsList/add-form">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:each="pet : ${petList}" class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" th:src="${pet.getUrl()}" alt="">
+                            <div class="product-action" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a class="btn btn-outline-dark btn-square" th:href="@{'/petsList/edit-form/{id}' (id=${pet.getId()})}" ><i class="fas fa-edit"></i></a>
+                                <form th:method="DELETE" th:action="@{'/petsList/deletePet/{id}' (id=${pet.getId()})}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a class="btn btn-outline-dark btn-square" type="button" th:method="DELETE" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/petsList/deletePet/{id}' (id=${pet.getId()})}"><i class="fa fa-trash"></i></a>
+                                </form>
+                                <a class="btn btn-outline-dark btn-square" th:href="@{'/petsList/details/{id}' (id=${pet.getId()})}"><i class="fa fa-info"></i></a>
+                            </div>
+                            <div class="product-action" sec:authorize="hasRole('ROLE_USER')">
+                                <a class="btn btn-lg" th:href="@{'/petsList/details/{id}' (id=${pet.getId()})}">See more <i class="fas fa-paw"></i></a>
+                            </div>
+                            <div class="product-action" th:if="${#request.getRemoteUser() == null}">
+                                <a class="btn btn-lg" th:href="@{'/petsList/details/{id}' (id=${pet.getId()})}">See more <i class="fas fa-paw"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4> <strong th:text="${pet.getName()}"></strong>
+                                <th:block th:if="${pet.getGender().name() == 'FEMALE' }">
+                                    <small>(<i class="fa fa-venus female-sign"></i>)</small>
+                                </th:block>
+                                <th:block th:if="${pet.getGender().name() == 'MALE' }">
+                                    <small>(<i class="fa fa-mars male-sign"></i>)</small>
+                                </th:block>
+                            </h4>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <span class="pet_info_div_strong" th:text="${pet.getAge()}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <div class="col-12">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="C:/Users/Marija/Downloads/online-shop-website-template/mail/jqBootstrapValidation.min.js"></script>
+<script src="C:/Users/Marija/Downloads/online-shop-website-template/mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="C:/Users/Marija/Downloads/online-shop-website-template/js/main.js"></script>
+</div >

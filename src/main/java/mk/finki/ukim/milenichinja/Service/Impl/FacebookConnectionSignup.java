@@ -29,7 +29,7 @@ public class FacebookConnectionSignup implements ConnectionSignUp {
         user.setRole(Role.ROLE_USER);
         user.setName(connection.getDisplayName().split(" ")[0]);
         user.setName(connection.getDisplayName().split(" ")[1]);
-        user.setCity(City.Unknown);
+        user.setCity(City.Skopje);
 
         user.setProfilePicture(connection.getImageUrl());
         userRepository.save(user);

@@ -1,25 +1,30 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-    <head>
-        <title>Add pet</title>
-        <link rel="stylesheet" href="http://formoid.com/articles/data/upload/theme/style.min.css">
-        <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>
-    </head>
-
-    <body>
-    <header th:replace="fragments/navbar.html"/>
-        <section class="jumbotron text-center" style="background-color: cornflowerblue">
-            <div class="container">
-                <h1 class="jumbotron-heading" >ADD NEW PET</h1>
+<div class="container">
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Pets List</a>
+                    <span class="breadcrumb-item active">Add New</span>
+                </nav>
             </div>
-        </section>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <form action="/petsList/add" method="POST">
-                        <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
-                        <div class="form-group">
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <form action="/petsList/add" method="POST">
+            <div class="col-lg-8">
+
+                    <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Add new pet</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
                             <label for="ime">Name</label>
                             <input type="text"
                                    class="form-control"
@@ -28,30 +33,21 @@
                                    th:value="(${pet} != null ? ${pet.getName()} : '')"
                                    required>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="vid">Type</label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="vid"
-                                   name="vid"
-                                   th:value="(${pet} != null ? ${pet.getType()} : '')"
-                                   required>
-                        </div>-->
-                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                        <div th:if="${pet} != null" class="col-md-6 form-check form-check-inline">
                             <input th:checked="(${pet.getType().name()} == 'CAT' ? 'true' : 'false')" class="form-check-input" name="vid" type="radio" id="CAT" value="CAT">
                             <label class="form-check-label" for="CAT">CAT</label>
                             <input th:checked="(${pet.getType().name()} == 'DOG' ? 'true' : 'false')" class="form-check-input" name="vid"  type="radio" id="DOG" value="DOG">
                             <label class="form-check-label" for="DOG">DOG</label>
                         </div>
 
-                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                        <div th:if="${pet} == null" class="col-md-6 form-check form-check-inline">
                             <input class="form-check-input" name="vid" type="radio" id="CAT" value="CAT" required>
                             <label class="form-check-label" for="CAT">CAT</label>
                             <input class="form-check-input" name="vid"  type="radio" id="DOG" value="DOG" required>
                             <label class="form-check-label" for="DOG">DOG</label>
                         </div>
 
-                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                        <div th:if="${pet} != null" class="col-md-6 form-check form-check-inline">
                             <label class="form-check-label" for="DoB">Date of birth</label>
                             <input class="form-check-input"
                                    name="DoB"
@@ -61,7 +57,7 @@
                                    th:max="${today}"
                                    required>
                         </div>
-                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                        <div th:if="${pet} == null" class="col-md-6 form-check form-check-inline">
                             <label class="form-check-label" for="DoB">Date of birth</label>
                             <input class="form-check-input"
                                    name="DoB"
@@ -71,18 +67,7 @@
                                    th:max="${today}"
                                    required>
                         </div>
-
-                       <!-- <div class="form-group">
-                            <label for="vozrast">Age</label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="vozrast"
-                                   name="vozrast"
-                                   th:value="(${pet} != null ? ${pet.getAge()} : '')"
-                                   required>
-                        </div>-->
-
-                        <div class="form-group">
+                        <div class="col-md-6 form-group">
                             <label for="rasa">Breed</label>
                             <input type="text"
                                    class="form-control"
@@ -90,45 +75,40 @@
                                    th:value="(${pet} != null ? ${pet.getBreed()} : '')"
                                    name="rasa">
                         </div>
-                        <!--<div class="form-group">
-                            <label for="pol">Gender</label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="pol"
-                                   name="pol"
-                                   th:value="(${pet} != null ? ${pet.getGender()} : '')"
-                                   required>
-                        </div>-->
-                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                        <div th:if="${pet} != null" class="col-md-6 form-check form-check-inline">
                             <input th:checked="(${pet.getGender().name()} == 'FEMALE' ? 'true' : 'false')" class="form-check-input" name="pol" type="radio" id="FEMALE" value="FEMALE">
                             <label class="form-check-label" for="FEMALE">FEMALE</label>
                             <input th:checked="(${pet.getGender().name()} == 'MALE' ? 'true' : 'false')" class="form-check-input" name="pol"  type="radio" id="MALE" value="MALE">
                             <label class="form-check-label" for="MALE">MALE</label>
                         </div>
-                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                        <div th:if="${pet} == null" class="col-md-6 form-check form-check-inline">
                             <input class="form-check-input" name="pol" type="radio" id="FEMALE" value="FEMALE" required>
                             <label class="form-check-label" for="FEMALE">FEMALE</label>
                             <input class="form-check-input" name="pol"  type="radio" id="MALE" value="MALE" required>
                             <label class="form-check-label" for="MALE">MALE</label>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6 form-group">
                             <label for="opis">Description</label>
                             <textarea type="text"
-                                   class="form-control"
-                                   id="opis"
-                                   name="opis"
-                                   th:text="(${pet} != null ? ${pet.getDescription()} : '')"
+                                      class="form-control"
+                                      id="opis"
+                                      name="opis"
+                                      th:text="(${pet} != null ? ${pet.getDescription()} : '')"
                             ></textarea>
                         </div>
-                    <!--    <div class="form-group">
-                            <label for="id_centar">ID center</label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="id_centar"
-                                   name="id_centar"
-                                   >
-                        </div>-->
-                        <div class="form-group">
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="newaccount">
+                                <label class="custom-control-label" for="newaccount">Create an account</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shipto">
+                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
                             <label>Center</label>
                             <select name="id_centar" class="form-control">
                                 <option th:if="${pet} != null"
@@ -148,7 +128,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="col-md-6 form-group">
                             <label for="url_slika">Picture url</label>
                             <input type="text"
                                    class="form-control"
@@ -157,13 +137,127 @@
                                    th:value="(${pet} != null ? ${pet.getUrl()} : '')"
                                    required>
                         </div>
+                    </div>
+                </div>
+                <div class="collapse mb-5" id="shipping-address">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
+                    <div class="bg-light p-30">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name</label>
+                                <input class="form-control" type="text" placeholder="John">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" type="text" placeholder="Doe">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="text" placeholder="example@email.com">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" placeholder="+123 456 789">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address Line 1</label>
+                                <input class="form-control" type="text" placeholder="123 Street">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address Line 2</label>
+                                <input class="form-control" type="text" placeholder="123 Street">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Country</label>
+                                <select class="custom-select">
+                                    <option selected>United States</option>
+                                    <option>Afghanistan</option>
+                                    <option>Albania</option>
+                                    <option>Algeria</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" placeholder="New York">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>State</label>
+                                <input class="form-control" type="text" placeholder="New York">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>ZIP Code</label>
+                                <input class="form-control" type="text" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-                        <button id="submit" type="submit" class="btn btn-primary" style="background-color: cornflowerblue; border: none">Submit</button>
-                    </form>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom">
+                        <h6 class="mb-3">Products</h6>
+                        <div class="d-flex justify-content-between">
+                            <p>Product Name 1</p>
+                            <p>$150</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Product Name 2</p>
+                            <p>$150</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Product Name 3</p>
+                            <p>$150</p>
+                        </div>
+                    </div>
+                    <div class="border-bottom pt-3 pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>$150</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">$10</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>$160</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
+                    <div class="bg-light p-30">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+                                <label class="custom-control-label" for="directcheck">Direct Check</label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                                <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                            </div>
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Submit</button>
+
+                    </div>
                 </div>
             </div>
+            </form>
         </div>
-        <footer th:replace="fragments/footer.html"/>
-    </body>
-</html>
+    </div>
+    <!-- Checkout End -->
+
+</div>

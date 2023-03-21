@@ -283,6 +283,11 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public List<Pet> searchByCenter(Integer centerId) {
+        return this.petRepository.findAllByCenterAndAdopted(centerRepository.findById(centerId).get(),false);
+    }
+
+    @Override
     public List<Pet> searchAdopted(Integer id) {
         if(id != null) {
             return this.petRepository.findAllByAdoptedAndId(true,id);

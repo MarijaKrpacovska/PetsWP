@@ -1,0 +1,30 @@
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-5">
+            <form action="/adopt/adoptPet" method="POST">
+                <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="dateAdoption">Choose a time and date when you can pick up your pet:</label>
+                    <input class="form-check-input"
+                           name="dateAdoption"
+                           type="datetime-local"
+                           id="dateAdoption"
+                           value="dateAdoption"
+                           th:min="${today}"
+                           required>
+                </div>
+
+                <div class="errorMessage">
+                    <p class="errorMessageText" style="color: red" th:if="${hasError}" th:text="${error}"></p>
+                </div>
+
+                <button id="submit" type="submit" class="btn btn-primary" style="background-color: cornflowerblue; border: none">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer.html"/>
+</body>
+</html>

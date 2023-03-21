@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Pet details</title>
+    <link rel="stylesheet" href="http://formoid.com/articles/data/upload/theme/style.min.css">
+    <!-- <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>-->
+    <link rel="stylesheet" th:href="@{/css/details/pets.css}"> </link>
+</head>
+<body>
+    <header th:replace="fragments/navbar.html"/>
+
+        <div class="classc">
+            <div title="entirePage" style="font-family:'Times New Roman', Times, serif">
+
+                <!-----------------------ROW 1 - BASIC INFO------------------------->
+                <div class="row" id="row1" title="row1">
+
+                    <!-----------------------LEFT COL - IMAGE------------------------->
+                    <div class="col-md-6" title="row1_leftCol">
+                        <div class="row">
+                            <div class="img_div" >
+                                <img class="imgImg" th:src="${pet.getUrl()}" />
+                            </div>
+                        </div>
+                        </br>
+
+                    </div>
+                    <!-------------------------LEFT COL - END-------------------------->
+                    <!-----------------------RIGHT COL - TITLE & TIME & AUTHOR------------------------->
+                    <div class="col-md-6" title="row1_rightCol" style="margin-left: -40px">
+                        <!--TITLE-->
+                        <div class="nameDiv" th:text="${pet.getName()}"  title="title"></div>
+
+                        <div class="descrDiv" th:text="${pet.getDescription()}"></div>
+
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-2 labelsCol">
+                                <label class="infoLabelDiv" for="type">Age:</label>
+                                <label class="infoLabelDiv" for="age">Age:</label>
+                                <label class="infoLabelDiv" for="gender">Gender:</label>
+                                <label class="infoLabelDiv" for="breed">Breed:</label>
+                                <label class="infoLabelDiv" for="center">Location:</label>
+                                <label class="infoLabelDiv" for="arrivalDate">Arrival date:</label>
+                            </div>
+                            <div class="col-md-10 infoCol">
+                                <div class="infoDiv" id="type" th:text="${pet.getType()}"></div>
+                                <div class="infoDiv" id="age" th:text="${pet.getAge()}"></div>
+                                <div class="infoDiv" id="gender" th:text="${pet.getGender().name()}"></div>
+                                <div th:if="${pet.getBreed()} != ''" class="infoDiv" id="breed" th:text="${pet.getBreed()}"></div>
+                                <div th:if="${pet.getBreed()} == ''" class="infoDiv" id="breed">/</div>
+                                <div>
+                                    <a class="infoDiv" th:href="@{'/centers/details/{id}' (id=${pet.getCenter().getId()})}">
+                                        <div class="infoDiv" id="center" th:text="${pet.getCenter().getCity().name()}" ></div>
+                                    </a>
+                                </div>
+                                <div class="infoDiv" id="arrivalDate" th:text="${pet.getArivalDate()}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form th:action="@{'/adopt/adoptPet/{id}' (id=${pet.getId()}) }">
+                                <button class="adopt_button"  type="submit">ADOPT</button>
+                            </form>
+                        </div>
+
+                        <!--<div class="row">
+                            <div class="col-md-2">
+                                <label class="infoLabelDiv" for="age">Age:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="infoDiv" id="age" th:text="${pet.getAge()}"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="infoLabelDiv" for="gender">Gender:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="infoDiv" id="gender" th:text="${pet.getGender().name()}"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="infoLabelDiv" for="breed">Breed:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div th:if="${pet.getBreed()} != ''" class="infoDiv" id="breed" th:text="${pet.getBreed()}"></div>
+                                <div th:if="${pet.getBreed()} == ''" class="infoDiv" id="breed">/</div>
+                            </div>
+                        </div>-->
+
+                        </hr>
+                    </div>
+
+
+                    <!-----------------------RIGHT COL - END------------------------->
+
+                </div>
+                <!-----------------------ROW 1 - END------------------------->
+                <!-----------------------ROW 2 - INGREDIENTS------------------------->
+                <div class="row" title="row2_ingredients">
+                    <hr />
+                    <div>
+
+
+            </div>
+                </div>
+            </div>
+        </div>
+
+    <footer th:replace="fragments/footer.html"/>
+</body>
+</html>

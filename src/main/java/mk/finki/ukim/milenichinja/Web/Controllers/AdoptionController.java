@@ -1,8 +1,9 @@
 package mk.finki.ukim.milenichinja.Web.Controllers;
 
+import mk.finki.ukim.milenichinja.Models.Adoption;
 import mk.finki.ukim.milenichinja.Models.AppUser;
 import mk.finki.ukim.milenichinja.Models.Center;
-import mk.finki.ukim.milenichinja.Models.Enums.City;
+import mk.finki.ukim.milenichinja.Models.Enums.*;
 import mk.finki.ukim.milenichinja.Models.Exceptions.*;
 import mk.finki.ukim.milenichinja.Models.Pet;
 import mk.finki.ukim.milenichinja.Service.AdoptionService;
@@ -54,7 +55,8 @@ public class AdoptionController {
 
         model.addAttribute("today", today);
         model.addAttribute("pet",pet);
-        return "posts/adopt.html";
+        model.addAttribute("bodyContent", "posts/adopt.html");
+        return "mainPages/master-template.html";
     }
 
     @PostMapping("/adoptPet")
@@ -93,6 +95,15 @@ public class AdoptionController {
         } catch (InvalidActionException | PetNotFoundException | AdoptionNotFoundException exception) {
             return "redirect:/petsList/pets-info/adopted?error=" + exception.getMessage();
         }
+    }
+
+    @GetMapping("pending")
+    public String getPendingAdoptions(HttpServletRequest request, Model model){
+        List<Adoption> adoptions = this.adoptionService.listAllByStatus(Status.PENDING);
+        model.addAttribute("pendingAdoptions", adoptions);
+        model.addAttribute("bodyContent", "mainPages/pendingAdoptions.html");
+        return "mainPages/master-template.html";
+        //  return "mainPages/pets.html";
     }
 
 }

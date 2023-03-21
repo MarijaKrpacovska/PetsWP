@@ -1,0 +1,169 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Add pet</title>
+        <link rel="stylesheet" href="http://formoid.com/articles/data/upload/theme/style.min.css">
+        <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>
+    </head>
+
+    <body>
+    <header th:replace="fragments/navbar.html"/>
+        <section class="jumbotron text-center" style="background-color: cornflowerblue">
+            <div class="container">
+                <h1 class="jumbotron-heading" >ADD NEW PET</h1>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <form action="/petsList/add" method="POST">
+                        <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
+                        <div class="form-group">
+                            <label for="ime">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="ime"
+                                   name="ime"
+                                   th:value="(${pet} != null ? ${pet.getName()} : '')"
+                                   required>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="vid">Type</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="vid"
+                                   name="vid"
+                                   th:value="(${pet} != null ? ${pet.getType()} : '')"
+                                   required>
+                        </div>-->
+                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                            <input th:checked="(${pet.getType().name()} == 'CAT' ? 'true' : 'false')" class="form-check-input" name="vid" type="radio" id="CAT" value="CAT">
+                            <label class="form-check-label" for="CAT">CAT</label>
+                            <input th:checked="(${pet.getType().name()} == 'DOG' ? 'true' : 'false')" class="form-check-input" name="vid"  type="radio" id="DOG" value="DOG">
+                            <label class="form-check-label" for="DOG">DOG</label>
+                        </div>
+
+                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                            <input class="form-check-input" name="vid" type="radio" id="CAT" value="CAT" required>
+                            <label class="form-check-label" for="CAT">CAT</label>
+                            <input class="form-check-input" name="vid"  type="radio" id="DOG" value="DOG" required>
+                            <label class="form-check-label" for="DOG">DOG</label>
+                        </div>
+
+                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                            <label class="form-check-label" for="DoB">Date of birth</label>
+                            <input class="form-check-input"
+                                   name="DoB"
+                                   type="date"
+                                   id="DoB"
+                                   th:value="${dateOfBirth}"
+                                   th:max="${today}"
+                                   required>
+                        </div>
+                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                            <label class="form-check-label" for="DoB">Date of birth</label>
+                            <input class="form-check-input"
+                                   name="DoB"
+                                   type="date"
+                                   id="DoB"
+                                   value="DoB"
+                                   th:max="${today}"
+                                   required>
+                        </div>
+
+                       <!-- <div class="form-group">
+                            <label for="vozrast">Age</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="vozrast"
+                                   name="vozrast"
+                                   th:value="(${pet} != null ? ${pet.getAge()} : '')"
+                                   required>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label for="rasa">Breed</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="rasa"
+                                   th:value="(${pet} != null ? ${pet.getBreed()} : '')"
+                                   name="rasa">
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="pol">Gender</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="pol"
+                                   name="pol"
+                                   th:value="(${pet} != null ? ${pet.getGender()} : '')"
+                                   required>
+                        </div>-->
+                        <div th:if="${pet} != null" class="form-check form-check-inline">
+                            <input th:checked="(${pet.getGender().name()} == 'FEMALE' ? 'true' : 'false')" class="form-check-input" name="pol" type="radio" id="FEMALE" value="FEMALE">
+                            <label class="form-check-label" for="FEMALE">FEMALE</label>
+                            <input th:checked="(${pet.getGender().name()} == 'MALE' ? 'true' : 'false')" class="form-check-input" name="pol"  type="radio" id="MALE" value="MALE">
+                            <label class="form-check-label" for="MALE">MALE</label>
+                        </div>
+                        <div th:if="${pet} == null" class="form-check form-check-inline">
+                            <input class="form-check-input" name="pol" type="radio" id="FEMALE" value="FEMALE" required>
+                            <label class="form-check-label" for="FEMALE">FEMALE</label>
+                            <input class="form-check-input" name="pol"  type="radio" id="MALE" value="MALE" required>
+                            <label class="form-check-label" for="MALE">MALE</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="opis">Description</label>
+                            <textarea type="text"
+                                   class="form-control"
+                                   id="opis"
+                                   name="opis"
+                                   th:text="(${pet} != null ? ${pet.getDescription()} : '')"
+                            ></textarea>
+                        </div>
+                    <!--    <div class="form-group">
+                            <label for="id_centar">ID center</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="id_centar"
+                                   name="id_centar"
+                                   >
+                        </div>-->
+                        <div class="form-group">
+                            <label>Center</label>
+                            <select name="id_centar" class="form-control">
+                                <option th:if="${pet} != null"
+                                        th:selected="${pet.getCenter() != null &&
+                                    pet.getCenter().getId() == center.getId()}"
+                                        th:each="center : ${centerList}"
+                                        th:value="${center.getId()}"
+                                        th:text="${center.getAddress()}">
+                                </option>
+                                <option th:if="${pet} == null"
+                                        th:each="center : ${petList}"
+                                        th:value="${center.getId()}"
+                                        th:text="${center.getAddress()}"
+                                        required>
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="url_slika">Picture url</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="url_slika"
+                                   name="url_slika"
+                                   th:value="(${pet} != null ? ${pet.getUrl()} : '')"
+                                   required>
+                        </div>
+
+
+                        <button id="submit" type="submit" class="btn btn-primary" style="background-color: cornflowerblue; border: none">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="fragments/footer.html"/>
+    </body>
+</html>

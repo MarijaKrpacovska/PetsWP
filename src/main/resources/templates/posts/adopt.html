@@ -1,45 +1,79 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Adopt pet</title>
-    <link rel="stylesheet" href="http://formoid.com/articles/data/upload/theme/style.min.css">
-    <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>
-</head>
-
-<body>
-<header th:replace="fragments/navbar.html"/>
-<section class="jumbotron text-center" style="background-color: cornflowerblue">
-    <div class="container">
-        <h1 class="jumbotron-heading" >Adopt pet</h1>
-    </div>
-</section>
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-5">
-            <form action="/adopt/adoptPet" method="POST">
-                <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="dateAdoption">Choose a time and date when you can pick up your pet:</label>
-                    <input class="form-check-input"
-                           name="dateAdoption"
-                           type="datetime-local"
-                           id="dateAdoption"
-                           value="dateAdoption"
-                           th:min="${today}"
-                           required>
-                </div>
-
-                <div class="errorMessage">
-                    <p class="errorMessageText" style="color: red" th:if="${hasError}" th:text="${error}"></p>
-                </div>
-
-                <button id="submit" type="submit" class="btn btn-primary" style="background-color: cornflowerblue; border: none">Submit</button>
-            </form>
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Pets List</a>
+                    <a class="breadcrumb-item text-dark" href="#">Pet Info</a>
+                    <span class="breadcrumb-item active">Adoption application</span>
+                </nav>
+            </div>
         </div>
     </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Apply to adopt <span th:text="${pet.getName()}"></span></span></h2>
+        <div class="row px-xl-5">
+            <div class="col-lg-7 mb-5">
+                <div class="contact-form bg-light p-30">
+                    <div id="success"></div>
+                    <form action="/adopt/adoptPet" method="POST" name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="experience">
+                            <label class="custom-control-label" for="size-all">I have experience with caring for pets</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="financial">
+                            <label class="custom-control-label" for="size-all">I am financially capable and willing to take care of a pet</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="size-all">
+                            <label class="custom-control-label" for="size-all">I have knowledge and/or experience in training and disciplining pets</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" rows="8" id="message" placeholder="Tell us a little about yourself and how you plan to take care of your future pet"
+                                      required="required"
+                                      data-validation-required-message="Please enter your message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <hr>
+                        <h5>When will you be able to pick up your pet?</h5>
+                        <div class="control-group">
+                            <input class="form-control" placeholder="When will you pick up your pet" name="dateAdoption"
+                                   type="datetime-local"
+                                   id="dateAdoption"
+                                   value="dateAdoption" th:min="${today}"
+                                   required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary text-light rounded"><span class="text-light">Apply for Adoption <i class="fa fa-paw"></i></span> </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-5">
+                <div class="bg-light p-30 mb-30">
+                    <h5><span th:text="${pet.getName()}"></span> is located here: </h5>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
+                            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" width="100%" height="250px"></iframe>
+                </div>
+                <div class="bg-light p-30 mb-3">
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
 </div>
-<footer th:replace="fragments/footer.html"/>
-</body>
-</html>
