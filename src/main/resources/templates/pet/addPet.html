@@ -1,0 +1,144 @@
+<div class="container">
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Pets List</a>
+                    <span class="breadcrumb-item active">Add New</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+
+            <div class="col-lg-8">
+                <form action="/petsList/add" method="POST">
+                <input id="id" type="hidden" name="id" th:value="(${pet} != null ? ${pet.getId()} : '')" >
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Add new pet</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label for="ime">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="ime"
+                                   name="ime"
+                                   th:value="(${pet} != null ? ${pet.getName()} : '')"
+                                   required>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                                <label for="rasa">Breed</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="rasa"
+                                       th:value="(${pet} != null ? ${pet.getBreed()} : '')"
+                                       name="rasa">
+                            </div>
+                        <div th:if="${pet} != null" class="col-md-6 mt-3 mb-3 form-check form-check-inline">
+                            <input th:checked="(${pet.getType().name()} == 'CAT' ? 'true' : 'false')" class="form-check-input mr-1 ml-3" name="vid" type="radio" id="CAT" value="CAT">
+                            <label class="form-check-label" for="CAT">CAT</label>
+                            <input th:checked="(${pet.getType().name()} == 'DOG' ? 'true' : 'false')" class="form-check-input mr-1 ml-5" name="vid"  type="radio" id="DOG" value="DOG">
+                            <label class="form-check-label" for="DOG">DOG</label>
+                        </div>
+                        <div th:if="${pet} == null" class="col-md-6 mt-3 mb-3 form-check form-check-inline">
+                            <input class="form-check-input mr-1 ml-3" name="vid" type="radio" id="CAT" value="CAT" required>
+                            <label class="form-check-label" for="CAT">CAT</label>
+                            <input class="form-check-input mr-1 ml-3" name="vid"  type="radio" id="DOG" value="DOG" required>
+                            <label class="form-check-label" for="DOG">DOG</label>
+                        </div>
+                        <div th:if="${pet} != null" class="col-md-6 mt-3 mb-3 form-check form-check-inline">
+                            <input th:checked="(${pet.getGender().name()} == 'FEMALE' ? 'true' : 'false')" class="mr-1 ml-3 form-check-input" name="pol" type="radio" id="FEMALE" value="FEMALE">
+                            <label class="form-check-label" for="FEMALE">FEMALE</label>
+                            <input th:checked="(${pet.getGender().name()} == 'MALE' ? 'true' : 'false')" class="mr-1 ml-3 form-check-input" name="pol"  type="radio" id="MALE" value="MALE">
+                            <label class="form-check-label" for="MALE">MALE</label>
+                        </div>
+                        <div th:if="${pet} == null" class="col-md-6 mt-3 mb-3 form-check form-check-inline">
+                            <input class="form-check-input mr-1 ml-3" name="pol" type="radio" id="FEMALE" value="FEMALE" required>
+                            <label class="form-check-label" for="FEMALE">FEMALE</label>
+                            <input class="form-check-input mr-1 ml-3" name="pol"  type="radio" id="MALE" value="MALE" required>
+                            <label class="form-check-label" for="MALE">MALE</label>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Center</label>
+                            <select name="id_centar" class="form-control">
+                                <option th:if="${pet} != null"
+                                        th:selected="${pet.getCenter() != null &&
+                                    pet.getCenter().getId() == center.getId()}"
+                                        th:each="center : ${centerList}"
+                                        th:value="${center.getId()}"
+                                        th:text="${center.getAddress()}">
+                                </option>
+                                <option th:if="${pet} == null"
+                                        th:each="center : ${petList}"
+                                        th:value="${center.getId()}"
+                                        th:text="${center.getAddress()}"
+                                        required>
+                                </option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="url_slika">Picture url</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="url_slika"
+                                   name="url_slika"
+                                   th:value="(${pet} != null ? ${pet.getUrl()} : '')"
+                                   required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="opis">Description</label>
+                            <textarea type="text"
+                                      class="form-control"
+                                      id="opis"
+                                      name="opis"
+                                      th:text="(${pet} != null ? ${pet.getDescription()} : '')"
+                            ></textarea>
+                        </div>
+                        <div th:if="${pet} != null" class="col-md-6 ml-3 form-check form-check-inline">
+                            <label class="form-check-label" for="DoB">Date of birth</label>
+                        </div>
+                        <div th:if="${pet} == null" class="col-md-6 ml-3 form-check form-check-inline">
+                            <label class="form-check-label" for="DoB">Date of birth</label>
+                        </div>
+                        <div th:if="${pet} != null" class="col-md-6 ml-3 mt-2 form-check form-check-inline">
+                            <input class="form-control"
+                                   name="DoB"
+                                   type="date"
+                                   id="DoB"
+                                   th:value="${dateOfBirth}"
+                                   th:max="${today}"
+                                   required>
+                        </div>
+                        <div th:if="${pet} == null" class="col-md-6 ml-3 mt-2 form-check form-check-inline">
+
+                            <input class="form-control"
+                                   name="DoB"
+                                   type="date"
+                                   id="DoB"
+                                   value="DoB"
+                                   th:max="${today}"
+                                   required>
+                        </div>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-block btn-primary font-weight-bold py-3 mt-3"> <span class="text-light">Save</span></button>
+                </div>
+                </form>
+            </div>
+
+
+            <div class="col-lg-4>">
+                <img style="width: 300px; margin-top: 330px; margin-right: 30px" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/15463/dog-and-cat-clipart-xl.png">
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+</div>

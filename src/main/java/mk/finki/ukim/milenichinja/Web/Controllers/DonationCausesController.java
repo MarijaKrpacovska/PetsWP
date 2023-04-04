@@ -1,8 +1,6 @@
 package mk.finki.ukim.milenichinja.Web.Controllers;
 
-import mk.finki.ukim.milenichinja.Models.Center;
 import mk.finki.ukim.milenichinja.Models.DonationCause;
-import mk.finki.ukim.milenichinja.Models.Enums.City;
 import mk.finki.ukim.milenichinja.Models.Pet;
 import mk.finki.ukim.milenichinja.Service.AppUserService;
 import mk.finki.ukim.milenichinja.Service.DonationCauseService;
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,8 +39,8 @@ public class DonationCausesController {
     public String getAllCausesPage(Model model) {
         List<DonationCause> donationCauses = this.donationCauseService.listAll();
         model.addAttribute("causesList",donationCauses);
-        model.addAttribute("bodyContent", "mainPages/donationCauses");
-        return "mainPages/master-template.html";
+        model.addAttribute("bodyContent", "donationCauses/donationCausesList");
+        return "fragments/master-template.html";
     }
     //MAIN GET PAGE
 
@@ -58,8 +55,8 @@ public class DonationCausesController {
             model.addAttribute("error", error);
         }
         // model.addAttribute("bodyContent","register");
-
-        return "posts/addDonationCause.html";
+        model.addAttribute("bodyContent", "donationCauses/addDonationCause.html");
+        return "fragments/master-template.html";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -73,7 +70,7 @@ public class DonationCausesController {
             model.addAttribute("allPets", allPets);
 
             model.addAttribute("cause", cause);
-            return "posts/addDonationCause";
+            return "donationCauses/addDonationCause";
         }
         return "redirect:/causes?error=DonationCauseNotFound";
     }
@@ -113,7 +110,8 @@ public class DonationCausesController {
 
             model.addAttribute("cause", cause);
             //model.addAttribute("causeSum", causeSum);
-            return "details/donationCause.html";
+            model.addAttribute("bodyContent", "donationCauses/donationCauseDetails.html");
+            return "fragments/master-template.html";
         }
         return "redirect:/products?error=ProductNotFound";
     }
@@ -128,7 +126,7 @@ public class DonationCausesController {
             List<DonationCause> causesList = this.donationCauseService.listAll();
             model.addAttribute("causes", causesList);
             model.addAttribute("cause", cause);
-            return "posts/cancelCause";
+            return "donationCauses/cancelCause";
         }
         return "redirect:/products?error=ProductNotFound";
     }
@@ -158,7 +156,7 @@ public class DonationCausesController {
     public String transferMoneyPage(Model model) {
         List<DonationCause> causesList = this.donationCauseService.listAll();
         model.addAttribute("causes", causesList);
-        return "posts/transferMoney";
+        return "donationCauses/transferMoney";
     }
 
     @PostMapping("/transfer-sum")

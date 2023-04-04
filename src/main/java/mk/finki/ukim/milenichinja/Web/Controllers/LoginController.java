@@ -6,7 +6,7 @@ import mk.finki.ukim.milenichinja.Models.Enums.City;
 import mk.finki.ukim.milenichinja.Models.Exceptions.ClientAlreadyExistsException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUsernameOrPasswordException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.PasswordsDoNotMatchException;
-import mk.finki.ukim.milenichinja.Models.Role;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
 import mk.finki.ukim.milenichinja.Service.AppUserService;
 import mk.finki.ukim.milenichinja.Service.CenterService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,8 @@ public class LoginController {
     //LOGIN
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        return "posts/login";
+        model.addAttribute("bodyContent","auth/login.html");
+        return "fragments/master-template";
     }
 
     @GetMapping("/logout")
@@ -58,7 +59,9 @@ public class LoginController {
         model.addAttribute("cityList",cityList);
         model.addAttribute("worksAtList",worksAtList);
         model.addAttribute("admin",false);
-        return "posts/register";
+        model.addAttribute("worksAtList",worksAtList);
+        model.addAttribute("bodyContent","auth/register");
+        return "fragments/master-template";
     }
 
     @PostMapping("/register")
@@ -94,7 +97,7 @@ public class LoginController {
         model.addAttribute("worksAtList",worksAtList);
         model.addAttribute("allUsers",users);
         model.addAttribute("allAdmins",admins);
-        return "posts/registerA.html";
+        return "auth/registerA.html";
     }
 
     @PostMapping("/manage-roles")

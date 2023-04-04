@@ -55,8 +55,8 @@ public class AdoptionController {
 
         model.addAttribute("today", today);
         model.addAttribute("pet",pet);
-        model.addAttribute("bodyContent", "posts/adopt.html");
-        return "mainPages/master-template.html";
+        model.addAttribute("bodyContent", "adoption/adopt.html");
+        return "fragments/master-template.html";
     }
 
     @PostMapping("/adoptPet")
@@ -101,9 +101,18 @@ public class AdoptionController {
     public String getPendingAdoptions(HttpServletRequest request, Model model){
         List<Adoption> adoptions = this.adoptionService.listAllByStatus(Status.PENDING);
         model.addAttribute("pendingAdoptions", adoptions);
-        model.addAttribute("bodyContent", "mainPages/pendingAdoptions.html");
-        return "mainPages/master-template.html";
-        //  return "mainPages/pets.html";
+        model.addAttribute("bodyContent", "adoption/pendingAdoptions.html");
+        return "fragments/master-template.html";
+        //  return "mainPages/petsDetails.html";
+    }
+
+    @GetMapping("my-adoptions")
+    public String getMyAdoptions(HttpServletRequest request, Model model){
+        List<Adoption> adoptions = this.adoptionService.search(request.getRemoteUser(),null);
+        model.addAttribute("pendingAdoptions", adoptions);
+        model.addAttribute("bodyContent", "adoption/myAdoptions.html");
+        return "fragments/master-template.html";
+        //  return "mainPages/petsDetails.html";
     }
 
 }

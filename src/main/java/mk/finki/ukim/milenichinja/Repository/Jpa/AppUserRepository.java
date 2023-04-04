@@ -1,7 +1,7 @@
 package mk.finki.ukim.milenichinja.Repository.Jpa;
 
 import mk.finki.ukim.milenichinja.Models.AppUser;
-import mk.finki.ukim.milenichinja.Models.Role;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

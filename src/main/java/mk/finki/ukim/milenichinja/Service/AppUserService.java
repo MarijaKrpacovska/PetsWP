@@ -1,12 +1,11 @@
 package mk.finki.ukim.milenichinja.Service;
 
 import mk.finki.ukim.milenichinja.Models.AppUser;
-import mk.finki.ukim.milenichinja.Models.Center;
 import mk.finki.ukim.milenichinja.Models.Enums.City;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import mk.finki.ukim.milenichinja.Models.Role;
-import java.time.ZonedDateTime;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
+
 import java.util.List;
 import java.util.Optional;
 

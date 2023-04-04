@@ -1,0 +1,84 @@
+<div class="container">
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Pets List</a>
+                    <span class="breadcrumb-item active">Add New</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+
+            <div class="col-lg-8">
+                <form action="/centers/add" method="POST">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Add new shelter</span></h5>
+                    <div class="bg-light p-30 mb-5">
+                        <h5 class="ml-3 mb-2">Location</h5>
+                        <div class="row ml-3 mt-2">
+                            <input id="id" type="hidden" name="id" th:value="(${center} != null ? ${center.getId()} : '')" >
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="address"
+                                       name="address" required
+                                       style="width: 100%"
+                                       th:value="(${center} != null ? ${center.getAddress()} : '')">
+                            </div>
+
+                            <div class="form-group ml-2">
+                                <label>City</label>
+                                <select name="city" class="form-control">
+
+                                    <option th:if="${center} != null"
+                                            th:selected="${center.getCity() != null &&
+                                    center.getCity().name() == city.name()}"
+                                            th:each="city : ${cityList}"
+                                            th:value="${city.name()}"
+                                            th:text="${city.name()}">
+                                    </option>
+                                    <option th:if="${center} == null"
+                                            th:each="city : ${cityList}"
+                                            th:value="${city.name()}"
+                                            th:text="${city.name()}">
+                                    </option>
+
+                                </select>
+                            </div>
+
+                        </div>
+                        <hr/>
+                        <div class="row ml-3 mt-2">
+
+                            <div class="form-group">
+                                <label for="url">Picture url</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="url"
+                                       name="url" required
+                                       th:value="(${center} != null ? ${center.getUrl()} : '')">
+                            </div>
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-block btn-primary font-weight-bold py-3 mt-3"> <span class="text-light">Save</span></button>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="col-lg-4>">
+                <img style="width: 300px; margin-top: 110px; margin-right: 30px" src="https://cdn-icons-png.flaticon.com/512/2666/2666183.png">
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+</div>

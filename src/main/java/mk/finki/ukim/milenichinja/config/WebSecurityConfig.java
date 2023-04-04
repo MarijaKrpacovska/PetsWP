@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         UsersConnectionRepository usersConnectionRepository = getUsersConnectionRepository(connectionFactoryLocator);
         ((InMemoryUsersConnectionRepository) usersConnectionRepository).setConnectionSignUp(facebookConnectionSignup);
         ProviderSignInController providerSignInController = new ProviderSignInController(connectionFactoryLocator,
-                usersConnectionRepository, new FacebookSignInAdapter());
+                usersConnectionRepository, new ZFacebookSignInAdapter());
 
         providerSignInController.setPostSignInUrl("/petsList");
         return providerSignInController;

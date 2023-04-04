@@ -3,13 +3,13 @@ package mk.finki.ukim.milenichinja.Models;
 
 import lombok.Data;
 import mk.finki.ukim.milenichinja.Models.Enums.City;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
 import mk.finki.ukim.milenichinja.Models.Enums.SocialMediaService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;

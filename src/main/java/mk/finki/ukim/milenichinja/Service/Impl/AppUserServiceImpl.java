@@ -7,7 +7,7 @@ import mk.finki.ukim.milenichinja.Models.Exceptions.ClientAlreadyExistsException
 import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUserCredentialsException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUsernameOrPasswordException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.PasswordsDoNotMatchException;
-import mk.finki.ukim.milenichinja.Models.Role;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
 import mk.finki.ukim.milenichinja.Repository.Jpa.AppUserRepository;
 import mk.finki.ukim.milenichinja.Repository.Jpa.CenterRepository;
 import mk.finki.ukim.milenichinja.Service.AppUserService;

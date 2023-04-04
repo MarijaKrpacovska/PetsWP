@@ -2,13 +2,11 @@ package mk.finki.ukim.milenichinja.Service.Impl;
 
 import mk.finki.ukim.milenichinja.Models.AppUser;
 import mk.finki.ukim.milenichinja.Models.Enums.City;
-import mk.finki.ukim.milenichinja.Models.Role;
+import mk.finki.ukim.milenichinja.Models.Enums.Role;
 import mk.finki.ukim.milenichinja.Repository.Jpa.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
-import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Service;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;

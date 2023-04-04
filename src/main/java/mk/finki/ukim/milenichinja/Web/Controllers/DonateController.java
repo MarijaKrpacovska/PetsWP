@@ -5,7 +5,6 @@ import mk.finki.ukim.milenichinja.Models.*;
 import mk.finki.ukim.milenichinja.Models.Enums.PaymentMethod;
 import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUserCredentialsException;
 import mk.finki.ukim.milenichinja.Models.Exceptions.InvalidUsernameOrPasswordException;
-import mk.finki.ukim.milenichinja.Models.Exceptions.ValuteNotFoundException;
 import mk.finki.ukim.milenichinja.Service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -55,30 +54,50 @@ public class DonateController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        return "posts/donate";
+        model.addAttribute("bodyContent","donation/donate");
+        return "fragments/master-template.html";
     }
 
     @PostMapping("/donate")
-    public String donate(@RequestParam double sum,
-                         @RequestParam Long cardNumber,
-                         @RequestParam String valute,
+    public String donate(@RequestParam int sum,
                          @RequestParam Integer donationCauseId,
-                         @RequestParam PaymentMethod paymentMethod,
                          HttpServletRequest req
     ) {
         try{
             String username = req.getRemoteUser();
             AppUser user = appUserService.getByUsername(username).orElseThrow(InvalidUserCredentialsException::new);
             DonationCause donationCause=this.donationCauseService.findById(donationCauseId).orElseThrow();
-            Valute val = this.valuteService.findByShortName(valute).orElseThrow( () -> new ValuteNotFoundException(valute));
+            Valute val = this.valuteService.findByShortName("MKD").get();
 
-            this.donationService.save(user, sum, paymentMethod, cardNumber, val, donationCause);
-            return "redirect:/petsList";
+            this.donationService.save(user, sum, PaymentMethod.CREDITCARD, Long.getLong("1321"), val, donationCause);
+            return "redirect:/donation-checkout?sum="+sum;
         } catch (InvalidUsernameOrPasswordException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }
     }
     //DONATE
+
+//    @PostMapping("/donate")
+//    public String donate(@RequestParam int sum,
+//                         @RequestParam Long cardNumber,
+//                         @RequestParam String valute,
+//                         @RequestParam Integer donationCauseId,
+//                         @RequestParam PaymentMethod paymentMethod,
+//                         HttpServletRequest req
+//    ) {
+//        try{
+//            String username = req.getRemoteUser();
+//            AppUser user = appUserService.getByUsername(username).orElseThrow(InvalidUserCredentialsException::new);
+//            DonationCause donationCause=this.donationCauseService.findById(donationCauseId).orElseThrow();
+//            Valute val = this.valuteService.findByShortName(valute).orElseThrow( () -> new ValuteNotFoundException(valute));
+//
+//            this.donationService.save(user, sum, paymentMethod, cardNumber, val, donationCause);
+//            return "redirect:/donation-checkout?sum="+sum;
+//        } catch (InvalidUsernameOrPasswordException exception) {
+//            return "redirect:/register?error=" + exception.getMessage();
+//        }
+//    }
+//    //DONATE
 
     //VIEW ALL DONATIONS
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -86,7 +105,7 @@ public class DonateController {
     public String getAllDonationsPage(Model model) {
         List<Donation> donations = this.donationService.listAll();
         model.addAttribute("donationsList",donations);
-        return "mainPages/donations";
+        return "donation/donationsList";
     }
     //VIEW ALL DONATIONS
 

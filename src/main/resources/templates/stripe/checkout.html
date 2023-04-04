@@ -1,0 +1,66 @@
+<section class="background-radial-gradient overflow-hidden pt-5 pb-5"  xmlns:th="http://www.thymeleaf.org" style="margin-top: -30px; margin-bottom: -50px">
+  <style>
+    .background-radial-gradient{
+      background-image:  url("https://www.gofundme.com/c/wp-content/uploads/2019/06/sasha-sashina-Xcscr_sNSEY-unsplash.jpg?w=1920");
+      /*background-image:  url("https://www.shutterstock.com/image-vector/logo-dogs-cats-260nw-1190098948.jpg");*/
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+  <div class="container mt-5 mb-5 d-flex justify-content-center text-center">
+    <div class="card p-5">
+      <form action='/charge' method='POST' id='checkout-form'>
+        <div>
+          <h1 class="heading text-primary" >Make a donation</h1>
+          <p class="text">All your donations are used for the benefit of the rescues</p>
+        </div>
+        <div class="mt-4 pt-4 mb-4">
+          <h4 class="heading text-dark" >You are donating</h4>
+          <h2 class="text text-light bg-dark rounded">
+            <span>$</span>
+            <input type='hidden' th:value='${amount}' name='amount' />
+            <label><span th:text='${amount/100}' /></label>
+          </h2>
+        </div>
+
+          <div class="mt-2">
+            <h5 class="heading" >This donation will be used for:</h5>
+          </div>
+        <div class="p-3 mt-4 mb-4 bg-secondary rounded">
+          <div class="pricing p-3 rounded d-flex justify-content-between">
+            <div class="images d-flex flex-row align-items-center">
+              <img th:src="${cause.getImageUrl()}" class="rounded" width="400px">
+            </div>
+          </div>
+          <div class="mt-2">
+            <h3 class="heading">
+              <span class="business" th:text="${cause.getName()}" ></span>
+            </h3>
+          </div>
+          <!--pricing table-->
+          <!--      <div class="d-flex flex-row align-items-center">-->
+          <!--        <sup class="dollar font-weight-bold">$</sup>-->
+          <!--          <input type='hidden' th:value='${amount}' name='amount' />-->
+          <!--          <label>Price:<span th:text='${amount/100}' /></label>-->
+          <!--      </div>-->
+          <!-- /pricing table-->
+        </div>
+
+        <div class="mt-5">
+
+          <script src='https://checkout.stripe.com/checkout.js'
+                  class='stripe-button'
+                  th:attr='data-key=${stripePublicKey},
+                  data-amount=${amount},
+                  data-currency=${currency}'
+                  data-name='Adopt a Paw'
+                  data-description='Donation checkout'
+                  data-image
+                          ='https://media.istockphoto.com/id/1142468738/vector/heart-shape-or-love-symbol-in-animal-paw-print-for-pet-care-icon-concept-vector-illustration.jpg?s=612x612&w=0&k=20&c=jgFilEumySvn1lYkAGEdu0fZ-fCjYoOjgeE8NLHXe6E='
+                  data-locale='auto'
+                  data-zip-code='false'></script>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

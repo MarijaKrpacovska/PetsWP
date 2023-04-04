@@ -1,0 +1,501 @@
+<head>
+    <link rel="stylesheet" th:href="@{/олд/mainPages/allPets.css}"> </link>
+</head>
+<body>
+<!-------------------------------------BODY------------------------------------->
+<div class="pr-4 pl-4">
+    <div class="bodyContent">
+        <!-------------------------------------WHITE BACKGROUND------------------------------------->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="container-fluid pageheader-title">All pets</h2>
+                    <p class="container-fluid pageheader-text">This is a preview of all pets available in our system, including the once that have and have not yet been adopted.</p>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-12">
+                                <nav class="breadcrumb bg-light mb-30">
+                                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                                    <a class="breadcrumb-item text-dark" href="#">Pets List</a>
+                                    <a class="breadcrumb-item text-dark" href="#">Manage Pets</a>
+                                    <span class="breadcrumb-item active">All Pets</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="aTypeVisu" class="dcGraphDiv">
+                                    <div>
+                                                <span class="reset spanStyle" >
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                        <a class="reset spanStyle" href="javascript:typeChart.filterAll();dc.redrawAll();" >reset</a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                                <h5 class="graphLabel">
+                                    Number of dogs vs cats
+                                </h5>
+                            </div>
+
+                    </div>
+                    <div id="sparkline-revenue"></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="aGenderVisu" class="dcGraphDiv">
+                            <div >
+                                                <span class="reset spanStyle" >
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                        <a class="reset spanStyle" href="javascript:genderChart.filterAll();dc.redrawAll();">
+                                            reset
+                                        </a>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <p class="graphLabel">
+                                    Number of female vs male animals
+                                </p>
+                            </div>
+                    </div>
+                    <div id="sparkline-revenue2"></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="aAgeVisu" class="dcGraphDiv">
+                                    <div>
+                                                <span class="reset spanStyle" >
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                        <a class="reset spanStyle" href="javascript:ageChart.filterAll();dc.redrawAll();" >
+                                            reset
+                                        </a>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                        </div>
+
+                            <div class="row">
+                                <p class="graphLabel">
+                                    Number of animals per age
+                                </p>
+                            </div>
+                    </div>
+                    <div id="sparkline-revenue3"></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                                <div id="aBreedVisu" sclass="dcGraphDiv">
+                                    <div >
+                                                <span class="reset spanStyle" >
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                        <a class="reset spanStyle" href="javascript:breedChart.filterAll();dc.redrawAll();" >
+                                            reset
+                                        </a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <p class="graphLabel">
+                                    Number of animals per breed
+                                </p>
+                            </div>
+                    </div>
+                    <div id="sparkline-revenue4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+
+            <!-- recent orders  -->
+            <!-- ============================================================== -->
+            <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <h5 class="card-header">Recent Orders</h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th scope="col">#</th>
+                                    <th scope="col">IMAGE:</th>
+                                    <th scope="col">NAME:</th>
+                                    <th scope="col">TYPE:</th>
+                                    <th scope="col">PET AGE:</th>
+                                    <th scope="col">PET GENDER:</th>
+                                    <th scope="col">PET BREED:</th>
+                                    <th scope="col">LOCATION:</th>
+                                    <th scope="col">ARRIVAL DATE:</th>
+                                    <th scope="col">ADOPTED:</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pet : ${notAdoptedPetList}">
+                                    <td th:text="${pet.getId()}"></td>
+                                    <td>
+                                        <div class="m-r-10"><img class="rounded" th:src="${pet.getUrl()}" alt="Pet Image" title="" media-simple="true" width="45"></div>
+                                    </td>
+                                    <td th:text="${pet.getName()}"></td>
+                                    <td th:text="${pet.getType().name()}"></td>
+                                    <td th:text="${pet.getAge()}"></td>
+                                    <td th:text="${pet.getGender().name()}"></td>
+                                    <td th:text="${pet.getBreed()}"></td>
+                                    <td th:text="${pet.getCenter().getCity().name()}"></td>
+                                    <td th:text="${#strings.substringBefore(pet.getArivalDate(),'T')}"></td>
+                                    <td><span class="badge-dot badge-brand mr-1" th:text="${pet.isAdopted()}"></span> </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end recent orders  -->
+
+
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- customer acquistion  -->
+            <!-- ============================================================== -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card">
+                    <h5 class="card-header">Customer Acquisition</h5>
+                    <div class="card-body">
+                        <!--graph-->
+                        <div class="row svgGraphDiv">
+                            <svg class="adoptedTypes"></svg>
+                        </div>
+                        <!--graph-->
+
+                        <!--label-->
+                        <div class="row">
+                            <p class="graphLabel">
+                                Number of adopted vs not adopted animals
+                            </p>
+                        </div>
+                        <!--label-->
+                        <div class="text-center">
+                                            <span class="legend-item mr-2">
+                                                    <span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
+                                            <span class="legend-text">Returning</span>
+                                            </span>
+                            <span class="legend-item mr-2">
+
+                                                    <span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
+                                            <span class="legend-text">First Time</span>
+                                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end customer acquistion  -->
+            <!-- ============================================================== -->
+        </div>
+        <div class="whiteBackground">
+            <section class="features2 cid-qxWAQuan7h" id="features2-ph" data-rv-view="9966">
+
+
+                <!-------------------------------------TABLE AVALIABLE PETS------------------------------------->
+                <div class="row avaliablePetsMainDiv" hidden="hidden">
+                    <!--CHECK IF TABLE IS EMPTY-->
+                    <div class="col-12 tableCheckIfPetlistNull" th:if="${notAdoptedPetList.size() > 0}">
+                        <div class="table-responsive">
+                            <!--TABLE-->
+                            <table class="table table-striped">
+
+                                <thead>
+                                <!--TABLE TITLE AND SEARCH-->
+                                <tr class="avaliablePetsTableTitleRow">
+                                    <div class="row">
+                                        <!--title-->
+                                        <div class="col-md-9 avaliablePetsTableTitle">
+                                            AVALIABLE PETS:
+                                        </div>
+                                        <!--title-->
+
+                                        <!--search-->
+                                        <div style="font-size: 18px" class="col-md-3 avaliablePetsTableSearch">
+                                            <label class="tableSearchTitle avaliablePetsTableSearchTitle">
+                                                Search:
+                                            </label>
+
+                                            <form id="filter-form1">
+
+
+                                                <!--age-->
+                                                <select class="avaliablePetsTableSearchAge" id="ageSearch" name="ageSearch">
+                                                    <option value="">Age</option>
+                                                    <option value="lessThanYear"> less than 1 year </option>
+                                                    <option value="oneToTwoYears"> 1-2 years </option>
+                                                    <option value="threeToFiveYears"> 3-5 years </option>
+                                                    <option value="sixToNineYears"> 6-9 years </option>
+                                                    <option value="tenYearsOrOlder"> over 9 years </option>
+                                                </select>
+                                                <!--age-->
+
+                                                <!--age-->
+                                                <select class="avaliablePetsTableSearchAge" id="adoptedSearch" name="adoptedSearch">
+                                                    <option value="">Adopted</option>
+                                                    <option value="true"> true </option>
+                                                    <option value="false"> false </option>
+                                                </select>
+                                                <!--age-->
+
+                                                <!--gender-->
+                                                <select class="avaliablePetsTableSearchGender" id="genderSearch" name="genderSearch">
+                                                    <option value="">All</option>
+                                                    <option value="FEMALE">FEMALE</option>
+                                                    <option value="MALE">MALE</option>
+                                                </select>
+                                                <!--gender-->
+
+                                                <!--type-->
+                                                <select class="avaliablePetsTableSearchType" id="typeSearch" name="typeSearch">
+                                                    <option value="">All</option>
+                                                    <option value="DOG">DOG</option>
+                                                    <option value="CAT">CAT</option>
+                                                </select>
+                                                <!--type-->
+
+                                                </br>
+
+                                                <button  class="avaliablePetsTableSearchButton" id="filterAvaliable" type="submit">Filter</button>
+
+                                            </form>
+                                        </div>
+                                        <!--search-->
+                                    </div>
+                                </tr>
+                                <!--TABLE TITLE AND SEARCH-->
+
+                                <!--TABLE COLUMNS-->
+                                <tr class="petsTableColumns">
+                                    <th></th>
+                                    <th scope="col">PET ID:</th>
+                                    <th scope="col">NAME:</th>
+                                    <th scope="col">TYPE:</th>
+                                    <th scope="col">PET AGE:</th>
+                                    <th scope="col">PET GENDER:</th>
+                                    <th scope="col">PET BREED:</th>
+                                    <th scope="col">CENTER:</th>
+                                    <th scope="col">CITY:</th>
+                                    <th scope="col">ARRIVAL DATE:</th>
+                                    <th scope="col">ADOPTED:</th>
+                                </tr>
+                                <!--TABLE COLUMNS-->
+                                </thead>
+
+                                <tbody>
+                                <!--SINGLE PET ROW-->
+                                <tr th:each="pet : ${notAdoptedPetList}" class="tableRow_adoptedPet_body">
+
+                                    <!--Info about pet-->
+                                    <td class="petsTableBodyTd">
+                                        <img class="petImg" th:src="${pet.getUrl()}" alt="Pet Image" title="" media-simple="true">
+                                    </td>
+                                    <td class="petsTableBodyTd" >
+                                        <strong>#</strong>
+                                        <strong th:text="${pet.getId()}"></strong>
+                                    </td>
+
+                                    <td class="petsTableBodyTd" th:text="${pet.getName()}">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="type" th:text="${pet.getType().name()}">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="age" th:text="${pet.getAge()}">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="gender" th:text="${pet.getGender().name()}">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="breed" th:if="${pet.getBreed() != ''}" th:text="${pet.getBreed()} ">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="breed" th:if="${pet.getBreed() == ''}">
+                                        /
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="center" th:text="${pet.getCenter().getId()}">
+                                    </td>
+
+                                    <td class="petsTableBodyTd" id="petCity" th:text="${pet.getCenter().getCity().name()}">
+                                    </td>
+                                    <!--Info about pet-->
+
+                                    <!--Info about adoption-->
+                                    <td class="petsTableBodyTd" id="arrivalDate" th:text="${#strings.substringBefore(pet.getArivalDate(),'T')}"></td>
+                                    <!--Info about adoption-->
+
+                                    <td class="petsTableBodyTd" id="adopted" th:text="${pet.isAdopted()}">
+                                    </td>
+
+                                </tr>
+                                <!--SINGLE PET ROW-->
+                                </tbody>
+
+                            </table>
+                            <!--TABLE-->
+                        </div>
+                    </div>
+                    <!--CHECK IF TABLE IS EMPTY-->
+                </div>
+                <!-------------------------------------TABLE AVALIABLE PETS------------------------------------->
+
+
+                <!-------------------------------------VISUALISATIONS------------------------------------->
+                <div class="visualisations">
+                    </br>
+                    <!--ADOPTED VS NOT-->
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row svgGraphDiv">
+                                        <div class="dcGraphDiv" id="adoptedVisu">
+                                            <div id="fluctuation-chart">
+                                                <span class="reset spanStyle">
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+
+                                                <a class="reset spanStyle" href="javascript:adoptedChart.filterAll();dc.redrawAll();">
+                                                    reset
+                                                </a>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--graph-->
+
+                                    <!--label-->
+                                    <div class="row" style="text-align: center; margin: auto; font-size: 16px">
+                                        <p class="graphLabel">
+                                            Number of adopted vs not adopted animals (dc.js)
+                                        </p>
+                                    </div>
+                                    <!--label-->
+                                    <div id="sparkline-revenue5"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row svgGraphDiv" >
+                                        <div class="dcGraphDiv" id="aCityVisu">
+                                            <div>
+                                                <span class="reset spanStyle">
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                                <a class="reset spanStyle" href="javascript:cityChart.filterAll();dc.redrawAll();" >
+                                                    reset
+                                                </a>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <p class="graphLabel">
+                                            Number of animals per city
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="sparkline-revenue6"></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row svgGraphDiv" >
+                                        <div class="dcGraphDiv" id="aCenterVisu">
+                                            <div>
+                                                <span class="reset spanStyle" >
+                                                    Selected:
+                                                    <span class="filter"></span>
+                                                </span>
+                                                <a class="reset spanStyle" href="javascript:centerChart.filterAll();dc.redrawAll();" >
+                                                    reset
+                                                </a>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <p class="graphLabel">
+                                            Number of animals per center
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="sparkline-revenue7"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row visuAdoptedVsNot">
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-4 text-right">
+                        <div class="dc-data-count">
+                            <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                        </div>
+                        </div>
+                    </div>
+                    <!--ADOPTED VS NOT-->
+
+                    <!--CITIES AND CENTERS-->
+                </div>
+                <!-------------------------------------VISUALISATIONS------------------------------------->
+
+            </section>
+        </div>
+        <!-------------------------------------WHITE BACKGROUND------------------------------------->
+    </div>
+</div>
+<!-------------------------------------BODY------------------------------------->
+
+<!-------------------------------------SCRIPTS------------------------------------->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" th:src="@{/js/indexD3.js}"> </script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.js"></script>
+<script type="text/javascript" th:src="@{/js/indexDC.js}"> </script>
+<!-------------------------------------SCRIPTS------------------------------------->
+</body>

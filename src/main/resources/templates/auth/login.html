@@ -1,0 +1,174 @@
+
+<!--        <div class="container" xmlns:th="http://www.thymeleaf.org">-->
+<!--                <div class="row  mt-4 mb-4">-->
+<!--                    <div class="col-4"></div>-->
+<!--                    <div class="col-4 bg-light p-3 pt-5 pb-5 pr-3 pl-3">-->
+<!--                        <form class="form-signin mt-xl-5" method="post" action="/login">-->
+<!--                            <div class="row pt-5 pb-5">-->
+<!--                                <h1 class="form-signin-heading text-center">Login</h1>-->
+<!--                            </div>-->
+<!--                        <p>-->
+<!--                            <label for="username" class="sr-only">email</label>-->
+<!--                            <input type="text" id="username" name="username" class="form-control" placeholder="username" required=""-->
+<!--                                   autofocus="">-->
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            <label for="password" class="sr-only">Password</label>-->
+<!--                            <input type="password" id="password" name="password" class="form-control" placeholder="Password"-->
+<!--                                   required="">-->
+<!--                        </p>-->
+
+<!--                        <div th:text="${param.error}" class="text-danger"></div>-->
+
+<!--                        <button id="submit" class="btn btn-lg btn-primary btn-block"type="submit"><span class="text-light">Sign in</span></button>-->
+<!--                        </form>-->
+<!--                        <form action="/signin/facebook" method="POST">-->
+<!--                            <input type="hidden" name="scope" value="public_profile" />-->
+<!--                            &lt;!&ndash;                <input type="submit" value="Login using Facebook"/>&ndash;&gt;-->
+<!--                        </form>-->
+
+<!--                        <a href="/register" class="btn btn-block btn-light">Register here</a>-->
+<!--                    </div>-->
+<!--                    <div class="col-4"></div>-->
+<!--                </div>-->
+
+            <!-- Section: Design Block -->
+            <section class="background-radial-gradient overflow-hidden"  xmlns:th="http://www.thymeleaf.org" style="margin-top: -30px; margin-bottom: -50px">
+                <style>
+                    /*.background-radial-gradient {*/
+                    /*    background-color: hsl(218, 41%, 15%);*/
+                    /*    background-image: radial-gradient(650px circle at 0% 0%,*/
+                    /*    hsl(218, 41%, 35%) 15%,*/
+                    /*    hsl(218, 41%, 30%) 35%,*/
+                    /*    hsl(218, 41%, 20%) 75%,*/
+                    /*    hsl(218, 41%, 19%) 80%,*/
+                    /*    transparent 100%),*/
+                    /*    radial-gradient(1250px circle at 100% 100%,*/
+                    /*            hsl(218, 41%, 45%) 15%,*/
+                    /*            hsl(218, 41%, 30%) 35%,*/
+                    /*            hsl(218, 41%, 20%) 75%,*/
+                    /*            hsl(218, 41%, 19%) 80%,*/
+                    /*            transparent 100%);*/
+                    /*}*/
+                    .background-radial-gradient{
+                        background-image:  url("https://images.wagwalkingweb.com/media/daily_wag/blog_articles/hero/1632355932.9706626/how-common-is-rabies-among-stray-dogs-in-the-us.jpg");;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+
+                    /*#radius-shape-1 {*/
+                    /*    height: 220px;*/
+                    /*    width: 220px;*/
+                    /*    top: -60px;*/
+                    /*    left: -130px;*/
+                    /*    background: radial-gradient(#44006b, #ad1fff);*/
+                    /*    overflow: hidden;*/
+                    /*}*/
+
+                    /*#radius-shape-2 {*/
+                    /*    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;*/
+                    /*    bottom: -60px;*/
+                    /*    right: -110px;*/
+                    /*    width: 300px;*/
+                    /*    height: 300px;*/
+                    /*    background: radial-gradient(#44006b, #ad1fff);*/
+                    /*    overflow: hidden;*/
+                    /*}*/
+
+                    /*.bg-glass {*/
+                    /*    background-color: hsla(0, 0%, 100%, 0.9) !important;*/
+                    /*    backdrop-filter: saturate(200%) blur(25px);*/
+                    /*}*/
+                </style>
+
+                <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+                    <div class="row gx-lg-5 align-items-center mb-5">
+                        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(285,60%,4%)">
+                                Save a life <br />
+                                <span style="color: hsl(0,0%,100%)"><b>Adopt a Paw</b></span>
+                            </h1>
+                            <p class="mb-4 opacity-70" style="color: hsl(0,0%,100%)">
+                                Every year, approximately 6.5 million pets enter animal shelters nationwide, and 1.5 million become euthanized. And with the current shelter crisis, numbers are on the rise. But you can help!
+                                Not only are pets scientifically proven to reduce stress levels and improve blood pressure, but no one can offer the unconditional love and companionship a pet can.
+                            </p>
+                        </div>
+
+                        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                            <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                            <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                            <div class="card bg-glass">
+                                <div class="card-body px-4 py-5 px-md-5">
+                                    <form method="post" action="/login">
+                                        <!-- 2 column grid layout with text inputs for the first and last names -->
+                                        <div class=" pt-5 pb-5 text-center">
+                                            <div class="text-center"><h1 class="text-center text-primary">Login</h1></div>
+                                        </div>
+
+                                        <!-- Email input -->
+                                        <div class="form-outline mb-4 mt-4 pr-5 pl-5">
+                                            <label class="form-label text-left" for="username" >Username</label>
+                                            <input id="username"
+                                                   class="form-control text-center"
+                                                   type="text"
+                                                   name="username"
+                                                   placeholder="username"
+                                                   required=""
+                                                   autofocus=""/>
+
+                                        </div>
+
+                                                                                    <!-- Password input -->
+                                        <div class="form-outline mb-4 pr-5 pl-5">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input type="password"
+                                                   id="password"
+                                                   name="password"
+                                                   class="form-control text-center"
+                                                   placeholder="Password"
+                                                   required=""/>
+
+                                        </div>
+                                        <div th:text="${param.error}" class="text-danger"></div>
+                                        <!-- Submit button -->
+                                        <div class="form-outline mb-4 pr-5 pl-5 mt-5 pt-5">
+                                        <button id="submit" type="submit" class="btn btn-primary btn-block mb-4">
+                                            <span class="text-light">Login</span>
+                                        </button>
+                                        </div>
+
+                                        <!-- Register buttons -->
+<!--                                        <div class="text-center">-->
+<!--                                            <p>or sign up with:</p>-->
+<!--                                            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                                                <i class="fab fa-facebook-f"></i>-->
+<!--                                            </button>-->
+
+<!--                                            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                                                <i class="fab fa-google"></i>-->
+<!--                                            </button>-->
+
+<!--                                            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                                                <i class="fab fa-twitter"></i>-->
+<!--                                            </button>-->
+
+<!--                                            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                                                <i class="fab fa-github"></i>-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+                                        <div class="text-center">
+                                            <p>Don't have an account?</p>
+                                            <a href="/register">Sign up here</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section: Design Block -->
+
+
+<!--        </div>-->

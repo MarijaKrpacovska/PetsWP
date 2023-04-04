@@ -1,25 +1,4 @@
 
-  /*   d3.selectAll('#type')
-    var typesList = d3.selectAll('#type')["_groups"]["0"]
-    var types = []
-    for (i = 0; i < typesList.length; i++) {
-        types.push(typesList.item(i).textContent);
-    }
-
-    var catsNum = 0;
-    var dogsNum = 0;
-    for (i = 0; i < types.length; i++) {
-        if(types[i].toString().localeCompare('CAT') == 0){
-            catsNum++;
-        }
-        else if(types[i].toString().localeCompare('DOG') == 0){
-            dogsNum++;
-        }
-    }
-
-    var typesDataset = [];
-    typesDataset.push(dogsNum);
-    typesDataset.push(catsNum);*/
 
   //ADOPTED VS NOT ADOPTED
 
@@ -83,7 +62,7 @@
             if(d >= 17) {
                 return '#709acd';
             } else {
-                return '#fd7e14';
+                return '#9b11ce';
             }
         });
 

@@ -63,9 +63,9 @@ public class PetsController {
 
 
         model.addAttribute("petList", pets);
-        model.addAttribute("bodyContent", "mainPages/pets.html");
-        return "mainPages/master-template.html";
-      //  return "mainPages/pets.html";
+        model.addAttribute("bodyContent", "pet/availablePetsList.html");
+        return "fragments/master-template.html";
+      //  return "mainPages/petsDetails.html";
     }
 
     @GetMapping("/pets-info/all")
@@ -86,8 +86,9 @@ public class PetsController {
         }
 
         model.addAttribute("notAdoptedPetList", pets);
+        model.addAttribute("bodyContent", "pet/petsInfo_allPets.html");
 
-        return "mainPages/petsInfo_allPets.html";
+        return "fragments/master-template.html";
     }
 
     @GetMapping("/pets-info/adopted")
@@ -114,7 +115,7 @@ public class PetsController {
 
             model.addAttribute("adoptions", adoptions);
 
-            return "mainPages/petsInfo_adopted.html";
+            return "pet/petsInfo_adopted.html";
         } catch (AdoptionNotFoundException | UsernameNotFoundException exception) {
             return "redirect:/petsList/pets-info/adopted?error=" + exception.getMessage();
         }
@@ -139,7 +140,7 @@ public class PetsController {
 
         model.addAttribute("notAdoptedPetList",notAdoptedPets);
 
-        return "mainPages/petsInfo_avaliable.html";
+        return "pet/petsInfo_avaliable.html";
     }
     //GET MAIN PAGES
 
@@ -159,8 +160,8 @@ public class PetsController {
             model.addAttribute("dateOfBirth", dateOfBirth);
             model.addAttribute("pet", pet);
             model.addAttribute("centerList",centri);
-            model.addAttribute("bodyContent", "posts/addPet");
-            return "mainPages/master-template.html";
+            model.addAttribute("bodyContent", "pet/addPet");
+            return "fragments/master-template.html";
         }
         return "redirect:/products?error=ProductNotFound";
     }
@@ -174,8 +175,8 @@ public class PetsController {
 
         model.addAttribute("today", formattedString);
         model.addAttribute("petList",milenichinja);
-        model.addAttribute("bodyContent", "posts/addPet");
-        return "mainPages/master-template.html";
+        model.addAttribute("bodyContent", "pet/addPet");
+        return "fragments/master-template.html";
     }
 
     @PostMapping("/add")
@@ -230,13 +231,15 @@ public class PetsController {
     public String detailsPage(@PathVariable int id, Model model) {
         if (this.petService.findById(id).isPresent()) {
             Pet pet = this.petService.findById(id).get();
+            List <Pet> relatedPets = this.petService.search(pet.getAgeGroup(), pet.getBreed(), pet.getGender(), pet.getType());
             String dateOfBirth = pet.getDateOfBirth().getDayOfMonth()+"/"+pet.getDateOfBirth().getMonthValue()+"/"+pet.getDateOfBirth().getYear();
             String arrivalDate = pet.getArivalDate().getDayOfMonth()+"/"+pet.getArivalDate().getMonthValue()+"/"+pet.getArivalDate().getYear();
             model.addAttribute("pet", pet);
+            model.addAttribute("relatedPets", relatedPets);
             model.addAttribute("dateOfBirth", dateOfBirth);
             model.addAttribute("arrivalDate", arrivalDate);
-            model.addAttribute("bodyContent", "details/pets.html");
-            return "mainPages/master-template.html";
+            model.addAttribute("bodyContent", "pet/petsDetails.html");
+            return "fragments/master-template.html";
         }
         return "redirect:/petsList?error=PetNotFound";
     }

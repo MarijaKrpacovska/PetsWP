@@ -9785,7 +9785,19 @@
 <!-- Navbar Start -->
 <div class="container-fluid bg-primary text-light mb-30">
     <div class="row px-xl-5">
-        <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-3 d-none d-lg-block" sec:authorize="hasRole('ROLE_USER')">
+            <a class="btn d-flex align-items-center justify-content-between bg-dark text-light w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <h6 class="text-light m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <div class="navbar-nav w-100">
+                    <a href="" class="nav-item nav-link">Dogs</a>
+                    <a href="" class="nav-item nav-link">Cats</a>
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-3 d-none d-lg-block" th:if="${#request.getRemoteUser() == null}">
             <a class="btn d-flex align-items-center justify-content-between bg-dark text-light w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
                 <h6 class="text-light m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
                 <i class="fa fa-angle-down text-dark"></i>
@@ -9807,14 +9819,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="/home" class="nav-item nav-link">Home</a>
                         <a href="/petsList" class="nav-item nav-link">Find a pet</a>
                         <a href="/centers" class="nav-item nav-link">Our Shelters</a>
+                        <a href="/adopt/my-adoptions" sec:authorize="hasRole('ROLE_USER')" class="nav-item nav-link">My Adoptions</a>
                         <a href="/adopt/pending" sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item nav-link">Pending adoptions</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a class="btn px-0 text-light mr-2" href="/petsList/pets-info/all" sec:authorize="hasRole('ROLE_ADMIN')" >Manage pets </a>
-                        <a class="btn px-0 text-light mr-2" href="/manage-roles" sec:authorize="hasRole('ROLE_ADMIN')" >Manage users </a>
+                        <a class="btn px-0 text-light mr-5" href="/manage-roles" sec:authorize="hasRole('ROLE_ADMIN')" >Manage users </a>
                         <a class="btn px-0 text-light" href="/causes" sec:authorize="hasRole('ROLE_ADMIN')" >Manage donations</a>
                         <a href="/causes" sec:authorize="hasRole('ROLE_USER')" class="btn px-0">
                             <span class="text-light">Donate</span> <i class="fas fa-heart text-light"></i>
@@ -9824,6 +9836,19 @@
                         </a>
 
                     </div>
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-3 d-none d-lg-block" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="btn d-flex align-items-center justify-content-between bg-primary text-light w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <h6 class="text-light m-0"><i class="fa fa-bars mr-2"></i>Manage Pets</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <div class="navbar-nav w-100">
+                    <a href="" class="nav-item nav-link">All</a>
+                    <a href="" class="nav-item nav-link">Adopted</a>
+                    <a href="" class="nav-item nav-link">Avaliable</a>
                 </div>
             </nav>
         </div>

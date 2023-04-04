@@ -1,0 +1,136 @@
+
+<section class="background-radial-gradient overflow-hidden"  xmlns:th="http://www.thymeleaf.org" style="margin-top: -30px; margin-bottom: -50px">
+    <style>
+
+        .background-radial-gradient{
+            background-image:  url("https://www.zooplus.ie/magazine/wp-content/uploads/2020/05/covid-19-katze-adoptieren-1.jpeg");;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(0,0%,100%)">
+                    Save a life <br />
+                    <span style="color: hsl(0,0%,100%)"><b>Ad<i class="fa fa-paw"></i>pt a Paw</b></span>
+                </h1>
+                <p class="mb-4 opacity-70" style="color: hsl(0,0%,100%)">
+                    Too often, shelters euthanize animals due to room constraints, but if more people adopted pets instead of buying them, the number of pets euthanized would lower dramatically.
+                    When you adopt, not only do you save your loving new companion, but you make space for other animals who desperately need it, creating a domino effect of goodness.</p>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                <div class="card bg-glass">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <form method="post" action="/login">
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class=" pt-5 pb-5 text-center">
+                                <div class="text-center"><h1 class="text-center text-primary">Sign up</h1></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+
+                                        <label class="form-label" for="form3Example1">First name</label>
+                                        <input type="text" id="form3Example1" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+
+                                        <label class="form-label" for="form3Example2">Last name</label>
+                                        <input type="text" id="form3Example2" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+
+                                        <label class="form-label" for="form3Example11">Email</label>
+                                        <input type="text" id="form3Example11" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+
+                                        <label class="form-label" for="form3Example2">City</label>
+                                        <select name="city" class="form-control">
+                                            <option th:each="city : ${cityList}"
+                                                    th:value="${city.name()}"
+                                                    th:text="${city.name()}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <!-- Email input -->
+                            <div class="row">
+                            <div class="form-outline mb-4 col-6">
+                                <label class="form-label text-left" for="username" >Create a Username</label>
+                                <input id="username"
+                                       class="form-control text-center"
+                                       type="text"
+                                       name="username"
+                                       placeholder="username"
+                                       required=""
+                                       autofocus=""/>
+
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4 col-6">
+                                <label class="form-label" for="password">Create a Password</label>
+                                <input type="password"
+                                       id="password"
+                                       name="password"
+                                       class="form-control text-center"
+                                       placeholder="Password"
+                                       required=""/>
+
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"></div>
+                            <div class="form-outline col-6">
+                                <label class="form-label" for="repeatpassword">Repeat Password</label>
+                                <input type="password"
+                                       id="repeatpassword"
+                                       name="password"
+                                       class="form-control text-center"
+                                       placeholder="Password"
+                                       required=""/>
+                            </div>
+                            </div>
+                            <div th:text="${param.error}" class="text-danger"></div>
+                            <!-- Submit button -->
+                            <div class="form-outline mb-4  pt-5">
+                                <button id="submit" type="submit" class="btn btn-primary btn-block mb-4">
+                                    <span class="text-light">Sign up</span>
+                                </button>
+                            </div>
+
+
+                            <div class="text-center">
+                                <p>Already have an account?</p>
+                                <a href="/login">Log in here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section: Design Block -->
+
+
+<!--        </div>-->

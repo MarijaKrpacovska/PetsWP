@@ -41,8 +41,8 @@ public class CentersController {
         List<City> cities = Arrays.asList(City.values());
         model.addAttribute("centerList", centri);
         model.addAttribute("citiesList", cities);
-        model.addAttribute("bodyContent", "mainPages/centers");
-        return "mainPages/master-template.html";
+        model.addAttribute("bodyContent", "center/centersList");
+        return "fragments/master-template.html";
     }
     //MAIN GET PAGE
 
@@ -53,7 +53,8 @@ public class CentersController {
         //List<City> cityList = this.cityService.listAll();
         List<City> cityList = Arrays.asList(City.values());
         model.addAttribute("cityList",cityList);
-        return "posts/addCenter";
+        model.addAttribute("bodyContent", "center/addCenter");
+        return "fragments/master-template.html";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -63,7 +64,7 @@ public class CentersController {
         List<City> cities = Arrays.asList(City.values());
         model.addAttribute("center", center);
         model.addAttribute("cityList",cities);
-        return "posts/addCenter";
+        return "center/addCenter";
     }
 
     @PostMapping("/add")
@@ -110,8 +111,8 @@ public class CentersController {
                 model.addAttribute("center", center);
                 model.addAttribute("petsList", pets);
             }
-            model.addAttribute("bodyContent", "details/center.html");
-            return "mainPages/master-template.html";
+            model.addAttribute("bodyContent", "center/centerDetails.html");
+            return "fragments/master-template.html";
         }catch (CenterNotFoundException exception) {
             return "redirect:/centers?error=" + exception.getMessage();
         }

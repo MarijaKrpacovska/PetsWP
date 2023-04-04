@@ -1,0 +1,32 @@
+<section class="background-radial-gradient overflow-hidden pt-5 pb-5"  xmlns:th="http://www.thymeleaf.org" style="margin-top: -30px; margin-bottom: -50px">
+  <style>
+    .background-radial-gradient{
+      background-image:  url("https://cdn.shopify.com/s/files/1/1071/5948/files/MG_2019.jpg?v=1650041629");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+<div xmlns:th='http://www.thymeleaf.org'>
+<h3 th:if='${error}' th:text='${error}' style='color: red;'></h3>
+<div th:unless='${error}'>
+  <div class="vh-100 d-flex justify-content-center align-items-center" >
+    <div class="card col-md-4 bg-white shadow-md p-5" style="margin-top: -40px">
+      <div class="mb-4 text-center">
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="text-success bi bi-check-circle" width="75" height="75"-->
+<!--             fill="currentColor" viewBox="0 0 16 16">-->
+<!--          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />-->
+<!--          <path-->
+<!--                  d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />-->
+<!--        </svg>-->
+          <i class="fa fa-heart text-primary" style="font-size: 75px"></i>
+      </div>
+      <div class="text-center">
+        <h1 class="text-primary">Thank You for your donation! </h1>
+        <p>Even the smallest donations can make a difference to an animal in need. You saved a life today! </p>
+          <button class="btn btn-primary" th:href="@{'/petsList'}"> <span class="text-light">Back Home</span> </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>

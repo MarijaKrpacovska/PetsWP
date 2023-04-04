@@ -1,0 +1,193 @@
+<div xmlns:th="http://www.thymeleaf.org">
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Home</a>
+                <a class="breadcrumb-item text-dark" href="#">Pet List</a>
+                <span class="breadcrumb-item active">Pet Info</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Pet Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner bg-light">
+                    <div class="carousel-item active">
+                        <img class="w-100 h-100" th:src="${pet.getUrl()}" alt="Image">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="w-100 h-100" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/popular-puppy-questions-1639736471.jpg?crop=0.670xw:1.00xh;0.282xw,0&resize=640:*" alt="Image">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="w-100 h-100" src="https://www.thesprucepets.com/thmb/c87ds9hUAWMY1CnseyH-7oxRkOA=/2121x0/filters:no_upscale():strip_icc()/golden-retriever-puppy-in-grass-923135452-5c887d4146e0fb00013365ba.jpg" alt="Image">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-7 h-auto mb-30">
+            <div class="h-100 bg-light p-30">
+                <div class="row">
+                    <div class="col-8">
+                        <h1>Meet <span th:text="${pet.getName()}"></span></h1>
+                    </div>
+                    <div class="col-4 text-light">
+                        <form th:action="@{'/adopt/adoptPet/{id}' (id=${pet.getId()}) }">
+                            <button class="btn btn-primary text-light rounded"><span class="text-light">Apply for Adoption <i class="fa fa-paw"></i></span> </button>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <hr/>
+                        <span class="pet_info_div_strong" th:text="${pet.getAge()}"></span> <span> old</span>
+                        <span class="mr-2 ml-2">|</span>
+                        <th:block th:if="${pet.getGender().name() == 'FEMALE' }">
+                            <span><i class="fa fa-venus female-sign"></i> Female</span>
+                        </th:block>
+                        <th:block th:if="${pet.getGender().name() == 'MALE' }">
+                            <span><i class="fa fa-mars male-sign"></i> Male</span>
+                        </th:block>
+                        <span class="mr-2 ml-2">|</span>
+                        <span class="pet_info_div_strong" th:text="${pet.getBreed()}"></span>
+                    <span class="mr-2 ml-2">|</span> <span> <i class="fa fa-map-marker" aria-hidden="true"></i> </span>
+                    <span th:text="${pet.getCenter().getCity()}"></span>
+                    <hr/>
+                </div>
+                <div>
+                    <p><span>Bella (like the President) is looking for his new forever home. Found abandoned in a wooded rural area of Texas, he and his littermates were taken in by the rescue when just tiny little babies. The rest of the pups from his litter all have pending adoptions except this beautiful boy.
+Bella is about 3 months old and weighs about 20 pounds. He is a gentle soul, with the personality and demeanor typical of the Great Pyrenees breed, which we believe him to be. He is very playful but gentle, seems to think things through and carefully assesses new situations. Curious and inquisitive, he is constantly in information gathering mode.
+If you have any Pyrenees experience, you will know just how awesome he is. There is simply not another breed anywhere like them. They are guardians of their people, not totally "guard dogs" but better described as guardians, constantly watching over their flock.
+We have one the lives at the rescue and he inspects every new dog, every package, every person that enters our doors. We jokingly call him the "Quality Assurance Department".</span></p>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">More Information</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Adoption Information</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="d-flex mb-3">
+                            <strong class="text-dark mr-3">Date of birth:</strong>
+                            <span th:text="${dateOfBirth}"></span>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <strong class="text-dark mr-3">With us since:</strong>
+                            <span th:text="${arrivalDate}"></span>
+
+                        </div>
+                        <div class="d-flex mb-3">
+                        All our dogs are located in Texas and transported up to points along the East Coast as appropriate adopters are found. We go as far up as Bangor, Maine every 4-6 weeks but trust me when I say our dogs move quickly so don't hesitate to apply today!
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-2">
+                        <h4 class="mb-3">Additional Information</h4>
+                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+
+
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like test</span></h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel related-carousel">
+                <div class="product-item bg-light" th:each="relatedPet : ${relatedPets}">
+                    test
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" th:src="${relatedPet.getUrl()}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+</div>

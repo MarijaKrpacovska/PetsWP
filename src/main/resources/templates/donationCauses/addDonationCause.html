@@ -1,0 +1,105 @@
+<div class="container">
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Donation Causes List</a>
+                    <span class="breadcrumb-item active">Add New</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+
+            <div class="col-lg-8">
+                <form action="/donate/causePost" method="POST">
+                    <input id="id" type="hidden" name="id" th:value="(${cause} != null ? ${cause.getId()} : '')" >
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Add new donation cause</span></h5>
+                    <div class="bg-light p-30 mb-5">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="name">Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="name"
+                                       th:value="(${cause} != null ? ${cause.getName()} : '')"
+                                       name="name" required>
+                                <!-- th:value="(${pet} != null ? ${pet.getAddress()} : '')"-->
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="goal">Goal</label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="goal"
+                                       th:value="(${cause} != null ? ${cause.getGoal()} : '')"
+                                       name="goal" required>
+                                <!-- th:value="(${pet} != null ? ${pet.getAddress()} : '')"-->
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="importance">Importance</label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="importance"
+                                       th:value="(${cause} != null ? ${cause.getImportance()} : '')"
+                                       name="importance" required>
+                                <!-- th:value="(${pet} != null ? ${pet.getAddress()} : '')"-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-md-12 form-group">
+                                <label for="description">Description</label>
+                                <textarea type="text"
+                                          class="form-control"
+                                          id="description"
+                                          name="description"
+                                          th:text="(${cause} != null ? ${cause.getDescription()} : '')"
+                                ></textarea>
+                                <!-- th:value="(${pet} != null ? ${pet.getAddress()} : '')"-->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class=" col-md-12 form-group">
+                                <label>Related pets:</label><br/>
+                                <select id="petsIds" name="petsIds" multiple="multiple" size="10" style="width: 100%">
+                                    <option th:each="item : ${allPets}"
+                                            th:text="${item.getName()}"
+                                            th:value="${item.getId()} "> [pets.name]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="url">Image url</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="url"
+                                       th:value="(${cause} != null ? ${cause.getImageUrl()} : '')"
+                                       name="url" required>
+                                <!-- th:value="(${pet} != null ? ${pet.getAddress()} : '')"-->
+                            </div>
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-block btn-primary font-weight-bold py-3 mt-3"> <span class="text-light">Save</span></button>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="col-lg-4>">
+                <img style="width: 300px; margin-top: 270px; margin-right: 30px" src="https://www.pngmart.com/files/7/Donation-PNG-Free-Download.png">
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+</div>
